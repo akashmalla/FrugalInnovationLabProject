@@ -28,6 +28,14 @@ public class UserRegistration implements Serializable {
 	public UserRegistration() {
 	}
 
+	public String gettypeOfUser() {
+		return this.typeOfUser;
+	}
+	
+	public void settypeOfUser(String typeOfUser) {
+		this.typeOfUser = typeOfUser;
+	}
+	
 	public int getUser_ID() {
 		return this.user_ID;
 	}
