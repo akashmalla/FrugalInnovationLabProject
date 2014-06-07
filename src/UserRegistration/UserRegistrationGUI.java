@@ -47,6 +47,10 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
 	public void setPasswordTextField(String val) {
 		passwordTextField.setText(val);
 	}
+	
+	public void setTypeOfUserTextField(String val) {
+		passwordTextField.setText(val);
+	}	
 
 	public void setUserIDTextField(String val) {
 		userIDTextField.setText(val);;
