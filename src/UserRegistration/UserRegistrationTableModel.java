@@ -135,12 +135,18 @@ public class UserRegistrationTableModel extends AbstractTableModel {
 			//data[rowIndex][columnIndex] = (String) aValue;
 			
 		    // add row to database
+		    int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
+		    System.out.println(index);
 			EntityTransaction userTransaction = manager.getTransaction();  
 			userTransaction.begin();
 			UserRegistrationService.deleteUser(userID);
 			userTransaction.commit();
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
+			System.out.println(index);
 			UserRegistrationResultList.remove(index);
+
+	        // update the data in the model to the entries in array
+	         
+	        numrows--;
 			
 	 }
 	 
