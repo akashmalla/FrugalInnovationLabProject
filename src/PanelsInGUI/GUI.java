@@ -30,7 +30,7 @@ public class GUI extends javax.swing.JFrame {
         mainPanel.add(new UserRegistrationPanel(), "User Registration Panel");
         mainPanel.add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
         mainPanel.add(new DisplayProjectPanel(), "Display Project Panel");
-        cardLayout.show(mainPanel, "Add/Update Project Panel");
+        cardLayout.show(mainPanel, "Login Panel");
     }
 
     /**
