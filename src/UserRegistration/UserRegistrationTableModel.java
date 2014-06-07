@@ -136,7 +136,6 @@ public class UserRegistrationTableModel extends AbstractTableModel {
 			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
 
 		    // add row to database
-		    int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
 		    System.out.println(index);
 			EntityTransaction userTransaction = manager.getTransaction();  
 			userTransaction.begin();
