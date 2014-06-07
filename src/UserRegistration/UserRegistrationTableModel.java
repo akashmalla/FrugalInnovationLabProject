@@ -133,19 +133,23 @@ public class UserRegistrationTableModel extends AbstractTableModel {
 	 
 	 public void deleteRow(int userID){
 			//data[rowIndex][columnIndex] = (String) aValue;
-			
+			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
+
 		    // add row to database
 			EntityTransaction userTransaction = manager.getTransaction();  
 			userTransaction.begin();
 			UserRegistrationService.deleteUser(userID);
 			userTransaction.commit();
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
 			UserRegistrationResultList.remove(index);
+			numrows--;
 			
 	 }
 	 
 	 public void updateRow(Object[] array){
 			//data[rowIndex][columnIndex] = (String) aValue;
+		 	int userID = Integer.parseInt((String) array[0]); 
+			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
+			int col = 0;
 			
 		    // add row to database
 			EntityTransaction userTransaction = manager.getTransaction();  
@@ -154,7 +158,10 @@ public class UserRegistrationTableModel extends AbstractTableModel {
 			userTransaction.commit();
 			
 			// set the current row to rowIndex
-	        UserRegistrationResultList.add(updateRecord);
+	        //UserRegistrationResultList.add(updateRecord);
+			for(Object data : array){
+				setValueAt((String)data, index, col++);
+			}	
 
 	 }
 }
