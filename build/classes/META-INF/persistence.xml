@@ -4,6 +4,7 @@
 	<persistence-unit name="PersistenceUnit" transaction-type="RESOURCE_LOCAL">
 		 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		 <class>	UserRegistration.UserRegistration	</class>
+		 <class>	ProjectManagement.ProjectManagement	</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/project"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
