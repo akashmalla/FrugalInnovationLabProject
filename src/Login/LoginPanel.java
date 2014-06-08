@@ -1,4 +1,5 @@
 package Login;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Arrays;
 
@@ -162,8 +163,10 @@ public class LoginPanel extends javax.swing.JPanel {
 		if (isCorrect) {
             JOptionPane.showMessageDialog(controllingFrame,
                 "Success! You typed the right password.");
-            GUI gui = new GUI();
+            //GUI gui = new GUI();
             //gui.cardLayout.show(gui.mainPanel,"User Registration Panel");
+            CardLayout cl = (CardLayout)(PanelsInGUI.GUI.getMainPanel().getLayout());
+            cl.show(PanelsInGUI.GUI.getMainPanel(), "User Registration Panel");
         } else {
             JOptionPane.showMessageDialog(controllingFrame,
                 "Invalid password. Try again.",
