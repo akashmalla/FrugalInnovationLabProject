@@ -17,7 +17,7 @@ public class DisplayProjectController implements ListSelectionListener, TableMod
 	private UserRegistrationTableModel tableModel;
 	private UserRegistrationGUI gui;
 	
-	public DisplayProjectController(UserRegistrationGUI gui) {
+	public DisplayProjectController(DisplayProjectPanel gui) {
 		this.gui = gui;   
          // create the tableModel using the data in the cachedRowSet
 		tableModel = new UserRegistrationTableModel(); 

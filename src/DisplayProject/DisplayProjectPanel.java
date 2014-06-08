@@ -12,17 +12,17 @@ import javax.swing.JTable;
  *
  * @author akash
  */
-public class DisplayProjectGUI extends javax.swing.JFrame {
+public class DisplayProjectPanel extends javax.swing.JPanel {
 
 	private JTable jtable1; // the table displayed on the GUI
-    private UserRegistrationController UserRegistrationController; // glue between model and gui
+    private DisplayProjectController DisplayProjectController; // glue between model and gui
     
     /**
-     * Creates new form UserRegistrationGUI
+     * Creates new form DisplayProjectPanel
      */
-    public DisplayProjectGUI() {
+    public DisplayProjectPanel() {
         initComponents();
-        UserRegistrationController = new UserRegistrationController(this);
+        DisplayProjectController = new DisplayProjectController(this);
         addButtonJTable();
     }
     
@@ -30,9 +30,9 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
 		// addButton the data and column names to a JTable
 		//jtable1  = new JTable(UserListTableController.getData(), UserListTableController.getColumnNames());
 	   
-	    jtable1 = new JTable(UserRegistrationController.getTableModel());
+	    jtable1 = new JTable(DisplayProjectController.getTableModel());
 		// addButton a ListSelectionListener to the table
-		jtable1.getSelectionModel().addListSelectionListener(UserRegistrationController);
+		jtable1.getSelectionModel().addListSelectionListener(DisplayProjectController);
 		
 		// addButton the table to a scrollpane
 		JScrollPane scrollpane = new JScrollPane(jtable1);
@@ -41,7 +41,7 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
     }
     
     public void updateTable() {
-    	jtable1.setModel(UserRegistrationController.getTableModel());
+    	jtable1.setModel(DisplayProjectController.getTableModel());
     }
 
 	public void setPasswordTextField(String val) {
@@ -71,7 +71,7 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        UserRegistrationPanel = new javax.swing.JPanel();
+        DisplayProjectPanel1 = new javax.swing.JPanel();
         userNameLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
         userNameTextField = new javax.swing.JTextField();
@@ -86,10 +86,10 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
         userIDLabel = new javax.swing.JLabel();
         userIDTextField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        UserRegistrationPanel.setBackground(new java.awt.Color(255, 255, 153));
-        UserRegistrationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User Registration", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(255, 0, 0))); // NOI18N
+        DisplayProjectPanel1.setBackground(new java.awt.Color(255, 255, 153));
+        DisplayProjectPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User Registration", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(255, 0, 0))); // NOI18N
 
         userNameLabel.setText("User Name:");
 
@@ -153,8 +153,8 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout UserRegistrationPanelLayout = new javax.swing.GroupLayout(UserRegistrationPanel);
-        UserRegistrationPanel.setLayout(UserRegistrationPanelLayout);
+        javax.swing.GroupLayout UserRegistrationPanelLayout = new javax.swing.GroupLayout(DisplayProjectPanel1);
+        DisplayProjectPanel1.setLayout(UserRegistrationPanelLayout);
         UserRegistrationPanelLayout.setHorizontalGroup(
             UserRegistrationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserRegistrationPanelLayout.createSequentialGroup()
@@ -226,14 +226,15 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(UserRegistrationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(DisplayProjectPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+        
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(UserRegistrationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DisplayProjectPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -267,7 +268,7 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
         		}	
         	}
     		if(count == 0){
-    			UserRegistrationController.addRow(array);
+    			DisplayProjectController.addRow(array);
     		}
     	}
     	else{
@@ -293,8 +294,8 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
     private void deleteUserButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
     	int index = jtable1.getSelectedRow();
-    	int userID = Integer.parseInt((String) UserRegistrationController.getTableModel().getValueAt(index, 0));
-    	UserRegistrationController.deleteRow(userID);
+    	int userID = Integer.parseInt((String) DisplayProjectController.getTableModel().getValueAt(index, 0));
+    	DisplayProjectController.deleteRow(userID);
     	jtable1.revalidate();
     }                                                
 
@@ -315,7 +316,7 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
     	
     	Component controllingFrame = null;
     	if(array[0] != null && array[1] != null && array[2] != null && array[3] != null){
-    		UserRegistrationController.updateRow(array);
+    		DisplayProjectController.updateRow(array);
     	}
     	else{
 			JOptionPane.showMessageDialog( controllingFrame,
@@ -342,13 +343,13 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserRegistrationGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DisplayProjectPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserRegistrationGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DisplayProjectPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserRegistrationGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DisplayProjectPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserRegistrationGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DisplayProjectPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -362,14 +363,14 @@ public class DisplayProjectGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserRegistrationGUI().setVisible(true);
+                new DisplayProjectPanel().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify                     
     private javax.swing.JPanel UserListTablePanel;
-    private javax.swing.JPanel UserRegistrationPanel;
+    private javax.swing.JPanel DisplayProjectPanel1;
     private javax.swing.JButton addUserButton;
     private javax.swing.JButton deleteUserButton;
     private javax.swing.JRadioButton jRadioButton1;
