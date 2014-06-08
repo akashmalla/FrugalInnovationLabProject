@@ -1,6 +1,8 @@
 package PanelsInGUI;
 import java.awt.CardLayout;
 
+import Login.LoginPanel;
+
 import com.sun.xml.internal.ws.api.Component;
 
 

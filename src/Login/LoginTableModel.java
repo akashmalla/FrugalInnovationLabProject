@@ -7,6 +7,9 @@ import javax.persistence.Persistence;
 import javax.swing.table.*;
 import javax.persistence.*;
 
+import UserRegistration.UserRegistration;
+import UserRegistration.UserRegistrationService;
+
 import java.util.*;
 
 /**
@@ -98,7 +101,7 @@ public class LoginTableModel extends AbstractTableModel {
 	 }
 
 	 // create a new table model using the existing data in list
-	 public UserRegistrationTableModel(List<UserRegistration> list, EntityManager em)  {
+	 public LoginTableModel(List<UserRegistration> list, EntityManager em)  {
 	    UserRegistrationResultList = list;
 	    numrows = UserRegistrationResultList.size();
 	    UserRegistration = new UserRegistration();
@@ -165,5 +168,21 @@ public class LoginTableModel extends AbstractTableModel {
 				setValueAt((String)data, index, col++);
 			}	
 
+	 }
+	 
+	 public boolean authrization(int id, String password){
+		    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		    manager = factory.createEntityManager();
+		    UserRegistration = new UserRegistration();
+		    UserRegistrationService = new UserRegistrationService(manager);
+		    
+		    // read all the records from courselist
+		    UserRegistration user = UserRegistrationService.readUser(id);
+		    if (password.equals(user.getPassword())){
+		    	return true;
+		    }else{
+		    	return false;
+		    }
+		    
 	 }
 }

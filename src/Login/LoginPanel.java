@@ -1,8 +1,13 @@
-package PanelsInGUI;
+package Login;
 import java.awt.Component;
 import java.util.Arrays;
 
+import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
+
+import PanelsInGUI.GUI;
+import UserRegistration.UserRegistration;
+import UserRegistration.UserRegistrationService;
 
 
 /**
@@ -10,12 +15,14 @@ import javax.swing.JOptionPane;
  * @author akash
  */
 public class LoginPanel extends javax.swing.JPanel {
-
+	private static final String PERSISTENCE_UNIT_NAME = "PersistenceUnit";  // Used in persistence.xml
     private Component controllingFrame;
+    private LoginController loginController;
 	/**
      * Creates new form LoginPanel
      */
     public LoginPanel() {
+    	
         initComponents();
     }
 
@@ -146,15 +153,17 @@ public class LoginPanel extends javax.swing.JPanel {
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        char[] input = logInPasswordField.getPassword();
-        System.out.println(new String(input));
-        boolean value = isPasswordCorrect(input);
-        System.out.println(value);
-		if (isPasswordCorrect(input)) {
+    	int userID =Integer.parseInt(userNameTextField1.getText());
+        System.out.println(""+userID);
+        String password = new String(logInPasswordField.getPassword());
+        System.out.println(""+password);
+        LoginTableModel auth = new LoginTableModel();
+        boolean isCorrect = auth.authrization(userID, password);
+		if (isCorrect) {
             JOptionPane.showMessageDialog(controllingFrame,
                 "Success! You typed the right password.");
             GUI gui = new GUI();
-            gui.cardLayout.show(gui.mainPanel,"User Registration Panel");
+            //gui.cardLayout.show(gui.mainPanel,"User Registration Panel");
         } else {
             JOptionPane.showMessageDialog(controllingFrame,
                 "Invalid password. Try again.",
@@ -167,22 +176,7 @@ public class LoginPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
 
     }      
-    
-    private static boolean isPasswordCorrect(char[] input) {
-    boolean isCorrect = true;
-    char[] correctPassword = { 'a', 'd', 'm', 'i', 'n' };
-
-    if (input.length != correctPassword.length) {
-        isCorrect = false;
-    } else {
-        isCorrect = Arrays.equals (input, correctPassword);
-    }
-
-    //Zero out the password.
-    //Arrays.fill(correctPassword,'0');
-
-    return isCorrect;
-    }
+   
 
 
     // Variables declaration - do not modify                     
