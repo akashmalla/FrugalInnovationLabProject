@@ -35,8 +35,8 @@ public class ProjectManagementController implements ListSelectionListener, Table
 		int firstIndex = selectModel.getMinSelectionIndex();
 		
 		// read the data in each column using getValueAt and display it on corresponding textfield
-		gui.setSearchTextField( (String) tableModel.getValueAt(firstIndex, 0));
-		gui.setUserNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
+		//gui.setSearchTextField( (String) tableModel.getValueAt(firstIndex, 0));
+		//gui.setUserNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
 		
 	}
 	
