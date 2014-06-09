@@ -7,6 +7,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import javax.swing.event.*;
 
+import PanelsInGUI.DisplayProjectPanel;
+
 
 /**
 * Glue between the view (CourseListGUI) and the model (CourseListTableModel). 
@@ -14,19 +16,19 @@ import javax.swing.event.*;
 * @author rgrover
 */
 public class DisplayProjectController implements ListSelectionListener, TableModelListener{
-	private UserRegistrationTableModel tableModel;
-	private UserRegistrationGUI gui;
+	private static DisplayProjectTableModel tableModel;
+	private DisplayProjectPanel gui;
 	
 	public DisplayProjectController(DisplayProjectPanel gui) {
 		this.gui = gui;   
          // create the tableModel using the data in the cachedRowSet
-		tableModel = new UserRegistrationTableModel(); 
+		tableModel = new DisplayProjectTableModel(); 
 		tableModel.addTableModelListener(this);
 	}
 	
 	
 	// new code
-	public TableModel getTableModel() {
+	public static TableModel getTableModel() {
 		return tableModel;
 	}
 	
@@ -35,9 +37,9 @@ public class DisplayProjectController implements ListSelectionListener, TableMod
 		int firstIndex = selectModel.getMinSelectionIndex();
 		
 		// read the data in each column using getValueAt and display it on corresponding textfield
-		gui.setUserIDTextField( (String) tableModel.getValueAt(firstIndex, 0));
-		gui.setUserNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
-		gui.setPasswordTextField( (String) tableModel.getValueAt(firstIndex, 2));
+		gui.setProjectNameTextField( (String) tableModel.getValueAt(firstIndex, 0));
+		gui.setCategoryTextField( (String) tableModel.getValueAt(firstIndex, 1));
+		gui.setStatusTextField( (String) tableModel.getValueAt(firstIndex, 2));
 		//gui.setTypeOfUserTextField( (String) tableModel.getValueAt(firstIndex, 3));
 	}
 	
@@ -49,15 +51,15 @@ public class DisplayProjectController implements ListSelectionListener, TableMod
 	    	int firstIndex =  e.getFirstRow();
 	    	
 	    	// create a new table model with the new data
-	        tableModel = new UserRegistrationTableModel(tableModel.getList(), tableModel.getEntityManager());
+	        tableModel = new DisplayProjectTableModel(tableModel.getList(), tableModel.getEntityManager());
 	        tableModel.addTableModelListener(this);
 	        // update the JTable with the data
 	    	gui.updateTable();
 	    
 	        // read the data in each column using getValueAt and display it on corresponding textfield
-	    	gui.setUserIDTextField( (String) tableModel.getValueAt(firstIndex, 0));
-			gui.setUserNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
-			gui.setPasswordTextField( (String) tableModel.getValueAt(firstIndex, 2));
+	    	gui.setProjectNameTextField( (String) tableModel.getValueAt(firstIndex, 0));
+			gui.setCategoryTextField( (String) tableModel.getValueAt(firstIndex, 1));
+			gui.setStatusTextField( (String) tableModel.getValueAt(firstIndex, 2));
 			//gui.setTypeOfUserTextField( (String) tableModel.getValueAt(firstIndex, 3));
 			
 	} catch(Exception exp) {

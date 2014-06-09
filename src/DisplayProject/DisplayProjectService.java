@@ -1,6 +1,9 @@
 package DisplayProject;
 
 import javax.persistence.*;
+
+import ProjectManagement.ProjectManagement;
+
 import java.util.*;
 
 public class DisplayProjectService {
@@ -11,8 +14,8 @@ public class DisplayProjectService {
 	 }
 	 
     // method to create a new record
-     public UserRegistration createUser(int userID, String userName, String password, String typeOfUser) {
-    	UserRegistration user = new UserRegistration();
+     public ProjectManagement createUser(int userID, String userName, String password, String typeOfUser) {
+    	 ProjectManagement user = new ProjectManagement();
  	    user.setUser_ID(userID);
  	    user.setUserName(userName);
  	    user.setPassword(password);
@@ -28,7 +31,7 @@ public class DisplayProjectService {
      }
 
      // method to read all records
-     public List<UserRegistration> readAll() {
+     public List<ProjectManagement> readAll() {
     	 TypedQuery<UserRegistration> query = manager.createQuery("SELECT e FROM UserRecord e", UserRegistration.class);
     	 List<UserRegistration> result =  query.getResultList();
 
