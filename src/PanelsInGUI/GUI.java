@@ -1,11 +1,14 @@
 package PanelsInGUI;
 import java.awt.CardLayout;
 
-import Login.LoginGUI;
-import Login.LoginPanel;
+
 import ProjectManagement.ProjectManagementGUI;
 
-import com.sun.xml.internal.ws.api.Component;
+
+import Login.LoginPanel;
+
+import java.awt.Component;
+
 
 
 /*
@@ -28,13 +31,14 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         getMainPanel().setLayout(cardLayout);
-        getMainPanel().add(new LoginGUI(), "Login Panel");
+        getMainPanel().add(new LoginPanel(), "Login Panel");
         getMainPanel().add(new ProjectManagementPanel(), "Project Management Panel");
         getMainPanel().add(new AddUpdatePanel(), "Add/Update Project Panel");
         getMainPanel().add(new UserRegistrationPanel(), "User Registration Panel");
         getMainPanel().add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
         getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
         cardLayout.show(getMainPanel(), "Login Panel");
+
     }
 
     public static javax.swing.JPanel getMainPanel() {

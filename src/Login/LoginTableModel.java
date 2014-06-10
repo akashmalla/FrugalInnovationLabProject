@@ -111,4 +111,20 @@ public class LoginTableModel extends AbstractTableModel {
 		    }
 		    
 	 }
+	 
+	 public boolean authrization(int id, String password){
+		    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		    manager = factory.createEntityManager();
+		    UserRegistration = new UserRegistration();
+		    UserRegistrationService = new UserRegistrationService(manager);
+		    
+		    // read all the records from courselist
+		    UserRegistration user = UserRegistrationService.readUser(id);
+		    if (password.equals(user.getPassword())){
+		    	return true;
+		    }else{
+		    	return false;
+		    }
+		    
+	 }
 }

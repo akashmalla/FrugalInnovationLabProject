@@ -1,5 +1,13 @@
 package PanelsInGUI;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import UserRegistration.UserRegistrationController;
+import DisplayProject.DisplayProjectController;
+
 /**
  *
  * @author akash
@@ -9,9 +17,43 @@ public class DisplayProjectPanel extends javax.swing.JPanel {
     /**
      * Creates new form DisplayProjectPanel
      */
+	private JTable jtable1;
+    private DisplayProjectController DisplayProjectController; // glue between model and gui
+
+	
     public DisplayProjectPanel() {
         initComponents();
     }
+    
+    public void addButtonJTable() {
+		// addButton the data and column names to a JTable
+		//jtable1  = new JTable(UserListTableController.getData(), UserListTableController.getColumnNames());
+	   
+	    jtable1 = new JTable(DisplayProjectController.getTableModel());
+		// addButton a ListSelectionListener to the table
+		jtable1.getSelectionModel().addListSelectionListener(DisplayProjectController);
+		
+		// addButton the table to a scrollpane
+		JScrollPane scrollpane = new JScrollPane(jtable1);
+		downloadFilesPanel.setLayout(new BorderLayout());
+		downloadFilesPanel.add(scrollpane, BorderLayout.CENTER);
+    }
+    
+    public void updateTable() {
+    	jtable1.setModel(DisplayProjectController.getTableModel());
+    }
+    
+    public void setProjectNameTextField(String val) {
+		projectNameTextField.setText(val);
+	}
+    
+    public void setCategoryTextField(String val) {
+		categoryTextField.setText(val);
+	}
+    
+    public void setStatusTextField(String val) {
+		statusTextField.setText(val);
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.

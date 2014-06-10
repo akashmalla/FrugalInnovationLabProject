@@ -14,12 +14,13 @@ import javax.swing.event.*;
 */
 public class LoginController implements ListSelectionListener, TableModelListener{
 	private LoginTableModel tableModel;
-	private LoginGUI gui;
+
+	private LoginPanel gui;
 	
-	public LoginController(LoginGUI gui) {
+	public LoginController(LoginPanel gui) {
 		this.gui = gui;   
          // create the tableModel using the data in the cachedRowSet
-		tableModel = new LoginTableModel(tableModel.getList(), tableModel.getEntityManager()); 
+		tableModel = new LoginTableModel(); 
 		tableModel.addTableModelListener(this);
 	}
 	
