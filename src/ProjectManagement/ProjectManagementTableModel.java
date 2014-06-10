@@ -149,8 +149,8 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 	 
 	 public void updateRow(Object[] array){
 			//data[rowIndex][columnIndex] = (String) aValue;
-		 	int userID = Integer.parseInt((String) array[0]); 
-			int index = ProjectManagementResultList.indexOf(manager.find(ProjectManagement.class, userID));
+		 	int projectID = Integer.parseInt((String) array[0]); 
+			int index = ProjectManagementResultList.indexOf(manager.find(ProjectManagement.class, projectID));
 			int col = 0;
 			
 		    // add row to database
@@ -164,6 +164,5 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 			for(Object data : array){
 				setValueAt((String)data, index, col++);
 			}	
-
 	 }
 }

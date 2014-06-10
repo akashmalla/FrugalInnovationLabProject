@@ -22,8 +22,8 @@ public class UserRegistrationService {
      }
     
     // method to read a record
-     public UserRegistration readUser(String userID) {
-    	 UserRegistration user = manager.find(UserRegistration.class, userID);
+     public UserRegistration readUser(int id) {
+    	 UserRegistration user = manager.find(UserRegistration.class, id);
     	 return user;   	 
      }
 

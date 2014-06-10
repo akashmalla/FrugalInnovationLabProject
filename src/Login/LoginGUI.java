@@ -8,12 +8,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import PanelsInGUI.GUI;
+
 
 /**
 *
 * @author akash
 */
-public class LoginGUI extends javax.swing.JFrame {
+public class LoginGUI extends javax.swing.JPanel {
    private Component controllingFrame;
 
    /**
@@ -189,7 +191,8 @@ public class LoginGUI extends javax.swing.JFrame {
        if (isPasswordCorrect(input)) {
            JOptionPane.showMessageDialog(controllingFrame,
                "Success! You typed the right password.");
-
+           //GUI gui = new GUI();
+           //gui.cardLayout.show(gui.getMainPanel(), "User Registration");
        } else {
            JOptionPane.showMessageDialog(controllingFrame,
                "Invalid password. Try again.",

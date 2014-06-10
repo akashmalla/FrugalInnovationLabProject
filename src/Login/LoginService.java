@@ -1,6 +1,9 @@
 package Login;
 
 import javax.persistence.*;
+
+import UserRegistration.UserRegistration;
+
 import java.util.*;
 
 public class LoginService {
@@ -22,7 +25,7 @@ public class LoginService {
      }
     
     // method to read a record
-     public UserRegistration readUser(String userID) {
+     public UserRegistration readUser(int userID) {
     	 UserRegistration user = manager.find(UserRegistration.class, userID);
     	 return user;   	 
      }
