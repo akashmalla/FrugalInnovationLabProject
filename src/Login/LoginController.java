@@ -1,7 +1,5 @@
 package Login;
 
-import javax.persistence.EntityTransaction;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
@@ -16,6 +14,7 @@ import javax.swing.event.*;
 */
 public class LoginController implements ListSelectionListener, TableModelListener{
 	private LoginTableModel tableModel;
+
 	private LoginPanel gui;
 	
 	public LoginController(LoginPanel gui) {

@@ -28,20 +28,6 @@ public class LoginTableModel extends AbstractTableModel {
 	   // This field contains additional information about the results   
 	    int numcols, numrows;           // number of rows and columns
 
-	 LoginTableModel() {
-	    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	    manager = factory.createEntityManager();
-	    UserRegistration = new UserRegistration();
-	    UserRegistrationService = new UserRegistrationService(manager);
-	    
-	    // read all the records from courselist
-	    UserRegistrationResultList = UserRegistrationService.readAll();
-	    
-	    // update the number of rows and columns in the model
-	    numrows = UserRegistrationResultList.size();
-	    numcols = UserRegistration.getNumberOfColumns();
-      }
-
 	 // returns a count of the number of rows
 	 public int getRowCount() {
 		return numrows;
@@ -110,64 +96,20 @@ public class LoginTableModel extends AbstractTableModel {
 		UserRegistrationService = new UserRegistrationService(manager);
 	 }
 	 
-	 // In this method, a newly inserted row in the GUI is added to the table model as well as the database table
-	 // The argument to this method is an array containing the data in the textfields of the new row.
-	 public void addRow(Object[] array) {
-		//data[rowIndex][columnIndex] = (String) aValue;
-			
-	    // add row to database
-		EntityTransaction userTransaction = manager.getTransaction();  
-		userTransaction.begin();
-		UserRegistration newRecord = UserRegistrationService.createUser(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3]);
-		userTransaction.commit();
-		 
-		// set the current row to rowIndex
-        UserRegistrationResultList.add(newRecord);
-        int row = UserRegistrationResultList.size();  
-        int col = 0;
-
-        // update the data in the model to the entries in array
-         for (Object data : array) {
-          	 setValueAt((String) data, row-1, col++);
-         }
-         
-         numrows++;
-	 }
-	 
-	 public void deleteRow(int userID){
-			//data[rowIndex][columnIndex] = (String) aValue;
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
-
-		    // add row to database
-		    System.out.println(index);
-			EntityTransaction userTransaction = manager.getTransaction();  
-			userTransaction.begin();
-			UserRegistrationService.deleteUser(userID);
-			userTransaction.commit();
-			UserRegistrationResultList.remove(index);
-			numrows--;
-
-			
-	 }
-	 
-	 public void updateRow(Object[] array){
-			//data[rowIndex][columnIndex] = (String) aValue;
-		 	int userID = Integer.parseInt((String) array[0]); 
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
-			int col = 0;
-			
-		    // add row to database
-			EntityTransaction userTransaction = manager.getTransaction();  
-			userTransaction.begin();
-			UserRegistration updateRecord = UserRegistrationService.updateUser(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3]);
-			userTransaction.commit();
-			
-			// set the current row to rowIndex
-	        //UserRegistrationResultList.add(updateRecord);
-			for(Object data : array){
-				setValueAt((String)data, index, col++);
-			}	
-
+	 public boolean authrization(int id, String password){
+		    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		    manager = factory.createEntityManager();
+		    UserRegistration = new UserRegistration();
+		    UserRegistrationService = new UserRegistrationService(manager);
+		    
+		    // read all the records from courselist
+		    UserRegistration user = UserRegistrationService.readUser(id);
+		    if (password.equals(user.getPassword())){
+		    	return true;
+		    }else{
+		    	return false;
+		    }
+		    
 	 }
 	 
 	 public boolean authrization(int id, String password){

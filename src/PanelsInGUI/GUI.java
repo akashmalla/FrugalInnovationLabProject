@@ -1,10 +1,18 @@
 package PanelsInGUI;
 import java.awt.CardLayout;
 
+
+import ProjectManagement.ProjectManagementGUI;
+
+
 import Login.LoginPanel;
 import AssignUsersToProjects.*;
 
 import java.awt.Component;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fde1c47441e4446075e51d700aedf0c35e5f78e9
 
 
 /*
@@ -19,7 +27,7 @@ import java.awt.Component;
  */
 public class GUI extends javax.swing.JFrame {
     private Component controllingFrame;
-    CardLayout cardLayout = new CardLayout();
+    public CardLayout cardLayout = new CardLayout();
             
     /**
      * Creates new form SuperPanel
@@ -33,7 +41,12 @@ public class GUI extends javax.swing.JFrame {
         getMainPanel().add(new UserRegistrationPanel(), "User Registration Panel");
         getMainPanel().add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
         getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
+<<<<<<< HEAD
         cardLayout.show(getMainPanel(), "Assign Users to Projects Panel");
+=======
+        cardLayout.show(getMainPanel(), "Login Panel");
+
+>>>>>>> fde1c47441e4446075e51d700aedf0c35e5f78e9
     }
 
     public static javax.swing.JPanel getMainPanel() {

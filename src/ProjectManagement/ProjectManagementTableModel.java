@@ -15,12 +15,12 @@ import java.util.*;
 */
 public class ProjectManagementTableModel extends AbstractTableModel {
 
-	  List<UserRegistration> UserRegistrationResultList;   // stores the model data in a List collection of type UserRegistration
+	  List<ProjectManagement> ProjectManagementResultList;   // stores the model data in a List collection of type ProjectManagement
 	  private static final String PERSISTENCE_UNIT_NAME = "PersistenceUnit";  // Used in persistence.xml
 	  private static EntityManagerFactory factory;  // JPA  
 	  private EntityManager manager;				// JPA 
-	  private UserRegistration UserRegistration;			    // represents the entity courselist
-	  private UserRegistrationService UserRegistrationService;
+	  private ProjectManagement ProjectManagement;			    // represents the entity ProjectInformation
+	  private ProjectManagementService ProjectManagementService;
 	
 	   // This field contains additional information about the results   
 	    int numcols, numrows;           // number of rows and columns
@@ -28,15 +28,15 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 	 ProjectManagementTableModel() {
 	    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	    manager = factory.createEntityManager();
-	    UserRegistration = new UserRegistration();
-	    UserRegistrationService = new UserRegistrationService(manager);
+	    ProjectManagement = new ProjectManagement();
+	    ProjectManagementService = new ProjectManagementService(manager);
 	    
 	    // read all the records from courselist
-	    UserRegistrationResultList = UserRegistrationService.readAll();
+	    ProjectManagementResultList = ProjectManagementService.readAll();
 	    
 	    // update the number of rows and columns in the model
-	    numrows = UserRegistrationResultList.size();
-	    numcols = UserRegistration.getNumberOfColumns();
+	    numrows = ProjectManagementResultList.size();
+	    numcols = ProjectManagement.getNumberOfColumns();
       }
 
 	 // returns a count of the number of rows
@@ -52,7 +52,7 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 	 // returns the data at the given row and column number
 	 public Object getValueAt(int row, int col) {
 		try {
-		  return UserRegistrationResultList.get(row).getColumnData(col);
+		  return ProjectManagementResultList.get(row).getColumnData(col);
 		} catch (Exception e) {
 			e.getMessage();
 			return null;
@@ -71,7 +71,7 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 	 // returns the name of the column
 	 public String getColumnName(int col) {
 		   try {
-				return UserRegistration.getColumnName(col);
+				return ProjectManagement.getColumnName(col);
 			} catch (Exception err) {
 	             return err.toString();
 	       }             
@@ -81,7 +81,7 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 	 public void setValueAt(Object aValue, int row, int col) {
 		//data[rowIndex][columnIndex] = (String) aValue;
 		try {
-		   UserRegistration element = UserRegistrationResultList.get(row);
+		   ProjectManagement element = ProjectManagementResultList.get(row);
                    element.setColumnData(col, aValue); 
             fireTableCellUpdated(row, col);
 		} catch(Exception err) {
@@ -89,8 +89,8 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 		}	
 	 }
 	
-	 public List<UserRegistration> getList() {
-		 return UserRegistrationResultList;
+	 public List<ProjectManagement> getList() {
+		 return ProjectManagementResultList;
 	 }
 
 	 public EntityManager getEntityManager() {
@@ -98,13 +98,13 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 	 }
 
 	 // create a new table model using the existing data in list
-	 public UserRegistrationTableModel(List<UserRegistration> list, EntityManager em)  {
-	    UserRegistrationResultList = list;
-	    numrows = UserRegistrationResultList.size();
-	    UserRegistration = new UserRegistration();
-	   	numcols = UserRegistration.getNumberOfColumns();     
+	 public ProjectManagementTableModel(List<ProjectManagement> list, EntityManager em)  {
+	    ProjectManagementResultList = list;
+	    numrows = ProjectManagementResultList.size();
+	    ProjectManagement = new ProjectManagement();
+	   	numcols = ProjectManagement.getNumberOfColumns();     
 		manager = em;  
-		UserRegistrationService = new UserRegistrationService(manager);
+		ProjectManagementService = new ProjectManagementService(manager);
 	 }
 	 
 	 // In this method, a newly inserted row in the GUI is added to the table model as well as the database table
@@ -115,12 +115,12 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 	    // add row to database
 		EntityTransaction userTransaction = manager.getTransaction();  
 		userTransaction.begin();
-		UserRegistration newRecord = UserRegistrationService.createUser(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3]);
+		ProjectManagement newRecord = ProjectManagementService.createProject(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3], (String) array[4]);
 		userTransaction.commit();
 		 
 		// set the current row to rowIndex
-        UserRegistrationResultList.add(newRecord);
-        int row = UserRegistrationResultList.size();  
+        ProjectManagementResultList.add(newRecord);
+        int row = ProjectManagementResultList.size();  
         int col = 0;
 
         // update the data in the model to the entries in array
@@ -131,17 +131,17 @@ public class ProjectManagementTableModel extends AbstractTableModel {
          numrows++;
 	 }
 	 
-	 public void deleteRow(int userID){
+	 public void deleteRow(int projectID){
 			//data[rowIndex][columnIndex] = (String) aValue;
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
+			int index = ProjectManagementResultList.indexOf(manager.find(ProjectManagement.class, projectID));
 
 		    // add row to database
 		    System.out.println(index);
 			EntityTransaction userTransaction = manager.getTransaction();  
 			userTransaction.begin();
-			UserRegistrationService.deleteUser(userID);
+			ProjectManagementService.deleteProject(projectID);
 			userTransaction.commit();
-			UserRegistrationResultList.remove(index);
+			ProjectManagementResultList.remove(index);
 			numrows--;
 
 			
@@ -149,21 +149,20 @@ public class ProjectManagementTableModel extends AbstractTableModel {
 	 
 	 public void updateRow(Object[] array){
 			//data[rowIndex][columnIndex] = (String) aValue;
-		 	int userID = Integer.parseInt((String) array[0]); 
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
+		 	int projectID = Integer.parseInt((String) array[0]); 
+			int index = ProjectManagementResultList.indexOf(manager.find(ProjectManagement.class, projectID));
 			int col = 0;
 			
 		    // add row to database
 			EntityTransaction userTransaction = manager.getTransaction();  
 			userTransaction.begin();
-			UserRegistration updateRecord = UserRegistrationService.updateUser(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3]);
+			ProjectManagement updateRecord = ProjectManagementService.updateProject(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3], (String) array[4]);
 			userTransaction.commit();
 			
 			// set the current row to rowIndex
-	        //UserRegistrationResultList.add(updateRecord);
+	        //ProjectManagementResultList.add(updateRecord);
 			for(Object data : array){
 				setValueAt((String)data, index, col++);
 			}	
-
 	 }
 }

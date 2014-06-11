@@ -16,9 +16,11 @@ import UserRegistration.UserRegistrationService;
  * @author akash
  */
 public class LoginPanel extends javax.swing.JPanel {
+
 	private static final String PERSISTENCE_UNIT_NAME = "PersistenceUnit";  // Used in persistence.xml
     private Component controllingFrame;
     private LoginController loginController;
+
 	/**
      * Creates new form LoginPanel
      */
@@ -48,7 +50,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
         loginPanel1.setBackground(new java.awt.Color(255, 153, 0));
 
-        userNameLabel1.setText("Username:");
+        userNameLabel1.setText("UserID:");
 
         passwordLabel1.setText("Password:");
 
@@ -192,5 +194,8 @@ public class LoginPanel extends javax.swing.JPanel {
     private javax.swing.JLabel userNameLabel1;
     private javax.swing.JTextField userNameTextField1;
     private javax.swing.JLabel welcomeLabel;
+    //public static int userID;
+    //public static String password;
+    
     // End of variables declaration                   
 }
