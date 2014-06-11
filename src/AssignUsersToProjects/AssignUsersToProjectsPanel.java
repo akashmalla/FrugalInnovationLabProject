@@ -1,5 +1,7 @@
-package PanelsInGUI;
-
+package AssignUsersToProjects;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 /**
  *
  * @author akash
@@ -9,7 +11,10 @@ public class AssignUsersToProjectsPanel extends javax.swing.JPanel {
     /**
      * Creates new form AssignUsersToProjectsPanel
      */
+	JTable jtable1 = new JTable();
+	AssignUsersToProjectsController assignUsersToProjectsController = new AssignUsersToProjectsController(this);
     public AssignUsersToProjectsPanel() {
+    	System.out.println("hi");
         initComponents();
     }
 
@@ -201,7 +206,12 @@ public class AssignUsersToProjectsPanel extends javax.swing.JPanel {
         );
 
         searchUserButton.setText("Search User");
-
+        
+        searchUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchUserButtonActionPerformed(evt);
+            }
+        });
         searchProjectButton.setText("Search Project");
 
         javax.swing.GroupLayout AssignUsersToProjectsPanelLayout = new javax.swing.GroupLayout(AssignUsersToProjectsPanel);
@@ -282,8 +292,25 @@ public class AssignUsersToProjectsPanel extends javax.swing.JPanel {
     private void selectProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
     }                                                   
-
-
+    public void updateTable() {
+    	jtable1.setModel(assignUsersToProjectsController.getTableModel());
+    }
+    
+    private void searchUserButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    	//addButton a row to the table
+    	String user_id = userNameTextField.getText(); 
+    	
+    	Component controllingFrame = null;
+    	if(user_id == null){
+    		int count = 0;
+        	JOptionPane.showMessageDialog( controllingFrame,"You need to enter a unique user ID number.", "Error Message", JOptionPane.ERROR_MESSAGE);
+    	}
+    	else{
+    		assignUsersToProjectsController.readUserByUserID(user_id);
+    	}
+    }
+    
     // Variables declaration - do not modify                     
     private javax.swing.JPanel AssignUsersToProjectsPanel;
     private javax.swing.JPanel addProjectsToUserPanel;

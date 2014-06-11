@@ -2,8 +2,9 @@ package PanelsInGUI;
 import java.awt.CardLayout;
 
 import Login.LoginPanel;
+import AssignUsersToProjects.*;
 
-import com.sun.xml.internal.ws.api.Component;
+import java.awt.Component;
 
 
 /*
@@ -32,7 +33,7 @@ public class GUI extends javax.swing.JFrame {
         getMainPanel().add(new UserRegistrationPanel(), "User Registration Panel");
         getMainPanel().add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
         getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
-        cardLayout.show(getMainPanel(), "Login Panel");
+        cardLayout.show(getMainPanel(), "Assign Users to Projects Panel");
     }
 
     public static javax.swing.JPanel getMainPanel() {
