@@ -27,7 +27,21 @@ public class LoginTableModel extends AbstractTableModel {
 	
 	   // This field contains additional information about the results   
 	    int numcols, numrows;           // number of rows and columns
-
+	  
+	 public LoginTableModel() {
+		    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		    manager = factory.createEntityManager();
+		    UserRegistration = new UserRegistration();
+		    UserRegistrationService = new UserRegistrationService(manager);
+		    
+		    // read all the records from courselist
+		    UserRegistrationResultList = UserRegistrationService.readAll();
+		    
+		    // update the number of rows and columns in the model
+		    numrows = UserRegistrationResultList.size();
+		    numcols = UserRegistration.getNumberOfColumns();
+	  }
+	 
 	 // returns a count of the number of rows
 	 public int getRowCount() {
 		return numrows;
@@ -97,8 +111,7 @@ public class LoginTableModel extends AbstractTableModel {
 	 }
 	 
 
-	 
-	 public boolean authrization(int id, String password){
+	 public boolean authorization(int id, String password){
 		    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		    manager = factory.createEntityManager();
 		    UserRegistration = new UserRegistration();

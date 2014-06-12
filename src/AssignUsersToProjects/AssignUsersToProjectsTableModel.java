@@ -15,12 +15,12 @@ import java.util.*;
 */
 public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 
-	  List<UserRegistration> UserRegistrationResultList;   // stores the model data in a List collection of type UserRegistration
+	  List<AssignUsersToProjects> assignUsersToProjectsResultList;   // stores the model data in a List collection of type UserRegistration
 	  private static final String PERSISTENCE_UNIT_NAME = "PersistenceUnit";  // Used in persistence.xml
 	  private static EntityManagerFactory factory;  // JPA  
 	  private EntityManager manager;				// JPA 
-	  private UserRegistration UserRegistration;			    // represents the entity courselist
-	  private UserRegistrationService UserRegistrationService;
+	  private AssignUsersToProjects assignUsersToProjects;			    // represents the entity courselist
+	  private AssignUsersToProjectsService assignUsersToProjectsService;
 	
 	   // This field contains additional information about the results   
 	    int numcols, numrows;           // number of rows and columns
@@ -28,16 +28,20 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 	    AssignUsersToProjectsTableModel() {
 	    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	    manager = factory.createEntityManager();
-	    UserRegistration = new UserRegistration();
-	    UserRegistrationService = new UserRegistrationService(manager);
+	    assignUsersToProjects = new AssignUsersToProjects();
+	    assignUsersToProjectsService = new AssignUsersToProjectsService(manager);
 	    
 	    // read all the records from courselist
-	    UserRegistrationResultList = UserRegistrationService.readAll();
+	    assignUsersToProjectsResultList = assignUsersToProjectsService.readAll();
 	    
 	    // update the number of rows and columns in the model
-	    numrows = UserRegistrationResultList.size();
-	    numcols = UserRegistration.getNumberOfColumns();
+	    numrows = assignUsersToProjectsResultList.size();
+	    numcols = assignUsersToProjectsService.size();
       }
+	    
+		public AssignUsersToProjects readUserByUserID(String user_ID) {
+			return assignUsersToProjectsService.readUserByUserID(user_ID);
+		}
 
 	 // returns a count of the number of rows
 	 public int getRowCount() {
@@ -52,7 +56,7 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 	 // returns the data at the given row and column number
 	 public Object getValueAt(int row, int col) {
 		try {
-		  return UserRegistrationResultList.get(row).getColumnData(col);
+		  return assignUsersToProjectsResultList.get(row).getColumnData(col);
 		} catch (Exception e) {
 			e.getMessage();
 			return null;
@@ -71,7 +75,7 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 	 // returns the name of the column
 	 public String getColumnName(int col) {
 		   try {
-				return UserRegistration.getColumnName(col);
+				return assignUsersToProjects.getColumnName(col);
 			} catch (Exception err) {
 	             return err.toString();
 	       }             
@@ -81,7 +85,7 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 	 public void setValueAt(Object aValue, int row, int col) {
 		//data[rowIndex][columnIndex] = (String) aValue;
 		try {
-		   UserRegistration element = UserRegistrationResultList.get(row);
+			AssignUsersToProjects element = assignUsersToProjectsResultList.get(row);
                    element.setColumnData(col, aValue); 
             fireTableCellUpdated(row, col);
 		} catch(Exception err) {
@@ -89,8 +93,8 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 		}	
 	 }
 	
-	 public List<UserRegistration> getList() {
-		 return UserRegistrationResultList;
+	 public List<AssignUsersToProjects> getList() {
+		 return assignUsersToProjectsResultList;
 	 }
 
 	 public EntityManager getEntityManager() {
@@ -98,18 +102,19 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 	 }
 
 	 // create a new table model using the existing data in list
-	 public UserRegistrationTableModel(List<UserRegistration> list, EntityManager em)  {
-	    UserRegistrationResultList = list;
-	    numrows = UserRegistrationResultList.size();
-	    UserRegistration = new UserRegistration();
-	   	numcols = UserRegistration.getNumberOfColumns();     
+	 public AssignUsersToProjectsTableModel(List<AssignUsersToProjects> list, EntityManager em)  {
+		assignUsersToProjectsResultList = list;
+	    numrows = assignUsersToProjectsResultList.size();
+	    assignUsersToProjects = new AssignUsersToProjects();
+	   	numcols = assignUsersToProjects.getNumberOfColumns();     
 		manager = em;  
-		UserRegistrationService = new UserRegistrationService(manager);
+		assignUsersToProjectsService = new AssignUsersToProjectsService(manager);
 	 }
 	 
 	 // In this method, a newly inserted row in the GUI is added to the table model as well as the database table
 	 // The argument to this method is an array containing the data in the textfields of the new row.
-	 public void addRow(Object[] array) {
+	 
+/*	 public void addRow(Object[] array) {
 		//data[rowIndex][columnIndex] = (String) aValue;
 			
 	    // add row to database
@@ -129,41 +134,20 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
          }
          
          numrows++;
+	 }*/
+	 
+	 public void searchByUserId(String userID) {
+		  AssignUsersToProjects newRecord = assignUsersToProjectsService.readUserByUserID(userID);
+		  assignUsersToProjectsResultList.add(newRecord);
+	      int row = assignUsersToProjectsResultList.size();  
+	      int col = 0;
+
+	      setValueAt((String) (new Integer(newRecord.getUser_ID())).toString(), row-1, col++);
+	      setValueAt((String) newRecord.getFirstName(), row-1, col++);
+	      setValueAt((String) newRecord.getLastName(), row-1, col++);
+	      setValueAt((String) newRecord.gettypeOfUser(), row-1, col++);
+	      
+	      numrows = 1;
 	 }
 	 
-	 public void deleteRow(int userID){
-			//data[rowIndex][columnIndex] = (String) aValue;
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
-
-		    // add row to database
-		    System.out.println(index);
-			EntityTransaction userTransaction = manager.getTransaction();  
-			userTransaction.begin();
-			UserRegistrationService.deleteUser(userID);
-			userTransaction.commit();
-			UserRegistrationResultList.remove(index);
-			numrows--;
-
-			
-	 }
-	 
-	 public void updateRow(Object[] array){
-			//data[rowIndex][columnIndex] = (String) aValue;
-		 	int userID = Integer.parseInt((String) array[0]); 
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
-			int col = 0;
-			
-		    // add row to database
-			EntityTransaction userTransaction = manager.getTransaction();  
-			userTransaction.begin();
-			UserRegistration updateRecord = UserRegistrationService.updateUser(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3]);
-			userTransaction.commit();
-			
-			// set the current row to rowIndex
-	        //UserRegistrationResultList.add(updateRecord);
-			for(Object data : array){
-				setValueAt((String)data, index, col++);
-			}	
-
-	 }
 }

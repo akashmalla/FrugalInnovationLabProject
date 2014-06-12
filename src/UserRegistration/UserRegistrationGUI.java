@@ -40,9 +40,7 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
 		UserListTablePanel.add(scrollpane, BorderLayout.CENTER);
     }
     
-    public void updateTable() {
-    	jtable1.setModel(UserRegistrationController.getTableModel());
-    }
+
 
 	public void setPasswordTextField(String val) {
 		passwordTextField.setText(val);
