@@ -20,7 +20,7 @@ public class GUI extends javax.swing.JFrame {
     public CardLayout cardLayout = new CardLayout();
             
     /**
-     * Creates new form SuperPanel
+     * Creates new form SuperPanel comment
      */
     public GUI() {
         initComponents();
@@ -32,7 +32,9 @@ public class GUI extends javax.swing.JFrame {
         getMainPanel().add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
         getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
 
-        cardLayout.show(getMainPanel(), "Login Panel");
+
+        cardLayout.show(getMainPanel(), "Assign Users to Projects Panel");
+
 
     }
 

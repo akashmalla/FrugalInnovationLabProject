@@ -1,6 +1,9 @@
 package AssignUsersToProjects;
+import java.awt.BorderLayout;
 import java.awt.Component;
+
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 /**
  *
@@ -11,13 +14,27 @@ public class AssignUsersToProjectsPanel extends javax.swing.JPanel {
     /**
      * Creates new form AssignUsersToProjectsPanel
      */
-	JTable jtable1 = new JTable();
+	JTable jtable1;
 	AssignUsersToProjectsController assignUsersToProjectsController = new AssignUsersToProjectsController(this);
     public AssignUsersToProjectsPanel() {
-    	System.out.println("hi");
         initComponents();
+        assignUsersToProjectsController = new AssignUsersToProjectsController(this);
+        addButtonJTable();
     }
-
+    
+    public void addButtonJTable() {
+		// addButton the data and column names to a JTable
+		//jtable1  = new JTable(UserListTableController.getData(), UserListTableController.getColumnNames());
+	   
+	    jtable1 = new JTable(assignUsersToProjectsController.getTableModel());
+		// addButton a ListSelectionListener to the table
+		jtable1.getSelectionModel().addListSelectionListener(assignUsersToProjectsController);
+		
+		// addButton the table to a scrollpane
+		JScrollPane scrollpane = new JScrollPane(jtable1);
+		userSearchResultPanel.setLayout(new BorderLayout());
+		userSearchResultPanel.add(scrollpane, BorderLayout.CENTER);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
