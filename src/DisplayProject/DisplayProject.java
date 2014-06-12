@@ -1,7 +1,10 @@
 package DisplayProject;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import ProjectManagement.ProjectManagement;
 
 
 /**
@@ -14,59 +17,60 @@ public class DisplayProject implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column
-	private int user_ID;
+	private int file_id;
 
-	@Column(name="user_name")
-	private String userName;
+	@Column(name="file_name")
+	private String fileName;
 
-	@Column(name="password")
-	private String password;
+	@Column(name="file_level")
+	private int fileLevel;
 
-	@Column(name="type_of_user")
-	private String typeOfUser;
+	@Column(name="file_path")
+	private String filePath;
+	
+	@Column(name="project_id")
+	private String projectID;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn(name="project_id")
+	private ProjectManagement project_ID;
 
 	public DisplayProject() {
 	}
-
-	public String gettypeOfUser() {
-		return this.typeOfUser;
+	
+	public int getFileID() {
+		return this.file_id;
 	}
 	
-	public void settypeOfUser(String typeOfUser) {
-		this.typeOfUser = typeOfUser;
+	public void setFileID(int file_id){
+		this.file_id = file_id;
+	}
+
+	public String getfileName() {
+		return this.fileName;
 	}
 	
-	public int getUser_ID() {
-		return this.user_ID;
+	public void setfileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	public int getfileLevel() {
+		return this.fileLevel;
 	}
 
-	public void setUser_ID(int user_ID) {
-		this.user_ID = user_ID;
+	public void setfileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public String getfilePath() {
+		return this.filePath;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setfilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
-	public String getPassword() {
-		return this.password;
-	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getTypeOfUser() {
-		return this.typeOfUser;
-	}
-
-	public void setTypeOfUser(String typeOfUser) {
-		this.typeOfUser = typeOfUser;
-	}
 	
 	   // return number of columns in the table
 	   public int getNumberOfColumns() {
@@ -76,13 +80,13 @@ public class DisplayProject implements Serializable {
 	   // return the data in column i
 	   public String getColumnData(int i) throws Exception {
 		   if (i == 0)
-			   return Integer.toString(getUser_ID());
+			   return Integer.toString(getFileID());
 		   else if (i == 1)
-			   return getUserName();
+			   return getfileName();
 		   else if (i == 2) 
-			   return getPassword();
+			   return Integer.toString(getfileLevel());
 		   else if (i == 3)
-			   return getTypeOfUser();
+			   return getfilePath();
 		   else
 			   throw new Exception("Error: invalid column index in UserRecord table");    
 	   }
@@ -91,13 +95,13 @@ public class DisplayProject implements Serializable {
 	   public String getColumnName(int i) throws Exception {
 		   String colName = null;
 		   if (i == 0) 
-			   colName = "User_ID";
+			   colName = "File_ID";
 		   else if (i == 1)
-			   colName = "user_name";
+			   colName = "File_Name";
 		   else if (i == 2)
-			   colName = "password";
+			   colName = "File_level";
 		   else if (i == 3)
-			   colName = "type_of_user";
+			   colName = "File_Path";
 		   else 
 			   throw new Exception("Access to invalid column number in UserRecord table");
 		   
@@ -107,23 +111,23 @@ public class DisplayProject implements Serializable {
 	   // set data column i to value
 	   public void setColumnData(int i, Object value) throws Exception {
 		   if (i == 0) 
-			   user_ID = Integer.parseInt((String) value);
+			   file_id = Integer.parseInt((String) value);
 		   else if (i == 1) 
-			   userName = (String) value;
+			   fileName = (String) value;
 		   else if (i == 2) 
-			   password =  (String) value;
+			   fileLevel =  Integer.parseInt((String) value);
 		   else if (i == 3)
-			   typeOfUser = (String) value;
+			   filePath = (String) value;
 		   else
 			   throw new Exception("Error: invalid column index in UserRecord table");    
 	   }
 	   
 	  @Override
 	  public String toString() {
-	    return "CourseList [User ID =" + user_ID + ", "
-	    	    + " First Name =" + userName + ","
-	    	    + " Last Name =" + password + ","
-	    	    + " Type Of User =" + typeOfUser + ","
+	    return "FileList [Fiel ID =" + file_id + ", "
+	    	    + " File Name =" + fileName + ","
+	    	    + " File Level =" + fileLevel + ","
+	    	    + " File Path =" + filePath + ","
 	        + "]";
 	  }
 }
