@@ -1,10 +1,10 @@
-package AssignUsersToProjects;
-import java.awt.BorderLayout;
-import java.awt.Component;
+package PanelsInGUI;
 
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import java.awt.*;
+import javax.swing.*;
+import AssignUsersToProjects.*;
+
+
 /**
  *
  * @author akash
