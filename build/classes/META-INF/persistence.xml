@@ -6,7 +6,11 @@
 		 <class>		UserRegistration.UserRegistration			</class>
 		 <class>		ProjectManagement.ProjectManagement			</class>
 		 <class>	 	AssignUsersToProjects.AssignUsersToProjects	</class>
+<<<<<<< HEAD
 		 <class>	 	DisplayProject.DisplayProject				</class>
+=======
+		 <class>		DisplayProject.DisplayProject				</class>
+>>>>>>> FETCH_HEAD
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/project"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

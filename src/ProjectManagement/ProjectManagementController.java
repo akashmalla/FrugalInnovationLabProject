@@ -7,6 +7,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import javax.swing.event.*;
 
+import PanelsInGUI.DisplayProjectPanel;
+import PanelsInGUI.GUI;
 import PanelsInGUI.ProjectManagementPanel;
 
 
@@ -18,6 +20,7 @@ import PanelsInGUI.ProjectManagementPanel;
 public class ProjectManagementController implements ListSelectionListener, TableModelListener{
 	private ProjectManagementTableModel tableModel;
 	private ProjectManagementPanel gui;
+	private DisplayProjectPanel gui2;
 	
 	public ProjectManagementController(ProjectManagementPanel gui) {
 		this.gui = gui;   
@@ -34,8 +37,15 @@ public class ProjectManagementController implements ListSelectionListener, Table
 	
 	public void valueChanged(ListSelectionEvent e) {
 		ListSelectionModel selectModel = (ListSelectionModel) e.getSource();
-		//int firstIndex = selectModel.getMinSelectionIndex();
-		
+		int firstIndex = selectModel.getMinSelectionIndex();
+		System.out.println((String) tableModel.getValueAt(firstIndex, 0));
+		GUI.selectedProject = Integer.parseInt((String)tableModel.getValueAt(firstIndex, 0));
+		System.out.println(GUI.selectedProject);
+		GUI.projectname = (String) tableModel.getValueAt(firstIndex, 1);
+		System.out.println(GUI.projectname);
+		GUI.projectcat = (String) tableModel.getValueAt(firstIndex, 2);
+		GUI.projectstatus = (String) tableModel.getValueAt(firstIndex, 3);
+
 		// read the data in each column using getValueAt and display it on corresponding textfield
 		//gui.setUserNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
 		

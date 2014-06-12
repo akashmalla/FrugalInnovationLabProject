@@ -11,7 +11,7 @@ import ProjectManagement.ProjectManagement;
  * The persistent class for the UserRecord database table.
  * 
  */
-//@Entity(name = "UserRecord")
+@Entity(name = "files")
 public class DisplayProject implements Serializable {
 
 	@Id
@@ -29,7 +29,7 @@ public class DisplayProject implements Serializable {
 	private String filePath;
 	
 	@Column(name="project_id")
-	private String projectID;
+	private int projectID;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn(name="project_id")
@@ -69,12 +69,20 @@ public class DisplayProject implements Serializable {
 	public void setfilePath(String filePath) {
 		this.filePath = filePath;
 	}
+	
+	public int getProjectID() {
+		return this.projectID;
+	}
+	
+	public void setprojectID(int projectID) {
+		this.projectID = projectID;
+	}
 
 
 	
 	   // return number of columns in the table
 	   public int getNumberOfColumns() {
-		   return 4;
+		   return 5;
 	   }
 	   
 	   // return the data in column i
@@ -87,12 +95,14 @@ public class DisplayProject implements Serializable {
 			   return Integer.toString(getfileLevel());
 		   else if (i == 3)
 			   return getfilePath();
+		   else if (i == 4)
+			   return Integer.toString(getProjectID());
 		   else
 			   throw new Exception("Error: invalid column index in UserRecord table");    
 	   }
 	   
 	   // return the name of column i
-	   public String getColumnName(int i) throws Exception {
+	   public static String getColumnName(int i) throws Exception {
 		   String colName = null;
 		   if (i == 0) 
 			   colName = "File_ID";
@@ -102,6 +112,8 @@ public class DisplayProject implements Serializable {
 			   colName = "File_level";
 		   else if (i == 3)
 			   colName = "File_Path";
+		   else if (i == 4)
+			   colName = "Project_ID";
 		   else 
 			   throw new Exception("Access to invalid column number in UserRecord table");
 		   
@@ -118,6 +130,8 @@ public class DisplayProject implements Serializable {
 			   fileLevel =  Integer.parseInt((String) value);
 		   else if (i == 3)
 			   filePath = (String) value;
+		   else if(i==4)
+			   projectID = Integer.parseInt((String) value);
 		   else
 			   throw new Exception("Error: invalid column index in UserRecord table");    
 	   }

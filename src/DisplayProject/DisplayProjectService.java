@@ -2,6 +2,7 @@ package DisplayProject;
 
 import javax.persistence.*;
 
+import PanelsInGUI.GUI;
 import ProjectManagement.ProjectManagement;
 import UserRegistration.UserRegistration;
 
@@ -33,9 +34,13 @@ public class DisplayProjectService {
 
      // method to read all records
      public List<DisplayProject> readAll() {
-    	 TypedQuery<DisplayProject> query = manager.createQuery("SELECT e FROM files e", DisplayProject.class);
-    	 List<DisplayProject> result =  query.getResultList();
+    	 GUI.LoginedUserLevel = 1;
+    	 //System.out.println(""+GUI.LoginedUserLevel);
+    	 TypedQuery<DisplayProject> query = manager.createQuery("SELECT e FROM files e WHERE e.fileLevel <= :uLevel AND e.projectID = :selectedPro", DisplayProject.class);
+    	 query.setParameter("uLevel", GUI.LoginedUserLevel);
+    	 query.setParameter("selectedPro", GUI.selectedProject);
 
+    	 List<DisplayProject> result =  query.getResultList();
     	 return result;   	 
      }
      
