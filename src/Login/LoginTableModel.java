@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import javax.swing.table.*;
 import javax.persistence.*;
 
+import PanelsInGUI.GUI;
 import UserRegistration.UserRegistration;
 import UserRegistration.UserRegistrationService;
 
@@ -120,6 +121,12 @@ public class LoginTableModel extends AbstractTableModel {
 		    // read all the records from courselist
 		    UserRegistration user = UserRegistrationService.readUser(id);
 		    if (password.equals(user.getPassword())){
+	            if(user.gettypeOfUser().equals("Viewer"))
+	                GUI.LoginedUserLevel = 1;
+	            else if(user.gettypeOfUser().equals("Normal Administrator"))
+	            	GUI.LoginedUserLevel = 2;
+	            else 
+	            	GUI.LoginedUserLevel = 3;
 		    	return true;
 		    }else{
 		    	return false;

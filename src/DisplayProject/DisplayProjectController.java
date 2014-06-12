@@ -1,5 +1,6 @@
 package DisplayProject;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -8,6 +9,9 @@ import javax.swing.table.TableModel;
 import javax.swing.event.*;
 
 import PanelsInGUI.DisplayProjectPanel;
+import PanelsInGUI.GUI;
+import ProjectManagement.ProjectManagement;
+import UserRegistration.UserRegistration;
 
 
 /**
@@ -18,12 +22,21 @@ import PanelsInGUI.DisplayProjectPanel;
 public class DisplayProjectController implements ListSelectionListener, TableModelListener{
 	private static DisplayProjectTableModel tableModel;
 	private DisplayProjectPanel gui;
-	
+	 private EntityManager manager;
+
 	public DisplayProjectController(DisplayProjectPanel gui) {
 		this.gui = gui;   
          // create the tableModel using the data in the cachedRowSet
 		tableModel = new DisplayProjectTableModel(); 
 		tableModel.addTableModelListener(this);
+		//System.out.println(GUI.selectedProject);
+		//GUI.selectedProject = 2;
+		//int primarykey = GUI.selectedProject;
+   	 	//ProjectManagement project = manager.find(ProjectManagement.class, primarykey);
+		//System.out.println(GUI.projectname);
+		//gui.setProjectNameTextField(GUI.projectname);
+		//gui.setStatusTextField(project.getProjectStatus());
+		//gui.setCategoryTextField(project.getProjectCategory());
 	}
 	
 	

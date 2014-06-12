@@ -26,6 +26,9 @@ public class DisplayProjectPanel extends javax.swing.JPanel {
         initComponents();
         DisplayProjectController = new DisplayProject.DisplayProjectController(this);
         addButtonJTable();
+		//System.out.println(GUI.projectname);
+        //projectNameTextField.setText(GUI.projectname);
+        
         
     }
     
@@ -57,6 +60,10 @@ public class DisplayProjectPanel extends javax.swing.JPanel {
     
     public void setStatusTextField(String val) {
 		statusTextField.setText(val);
+	}
+    
+    public void setDescriptionTextArea(String val) {
+		descriptionTextArea.setText(val);
 	}
 
     /**
@@ -91,16 +98,19 @@ public class DisplayProjectPanel extends javax.swing.JPanel {
 
         descriptionLabel.setText("Description:");
 
-        projectNameTextField.setText("jTextField1");
+        //Changed here.
+        String nameT = GUI.projectname; 
+        System.out.println("++++++++++++++++++++"+nameT);
+        projectNameTextField.setText(nameT);
 
-        categoryTextField.setText("jTextField2");
+        categoryTextField.setText(GUI.projectcat);
         categoryTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categoryTextFieldActionPerformed(evt);
             }
         });
 
-        statusTextField.setText("jTextField3");
+        statusTextField.setText(GUI.projectstatus);
 
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);

@@ -167,10 +167,10 @@ public class LoginPanel extends javax.swing.JPanel {
 		if (isCorrect) {
             JOptionPane.showMessageDialog(controllingFrame,
                 "Success! You typed the right password.");
-            //GUI gui = new GUI();
-            //gui.cardLayout.show(gui.mainPanel,"User Registration Panel");
+
+        	GUI.getMainPanel().add(new selectPanel(), "Select Panel");
             CardLayout cl = (CardLayout)(PanelsInGUI.GUI.getMainPanel().getLayout());
-            cl.show(PanelsInGUI.GUI.getMainPanel(), "User Registration Panel");
+            cl.show(PanelsInGUI.GUI.getMainPanel(), "Select Panel");
         } else {
             JOptionPane.showMessageDialog(controllingFrame,
                 "Invalid password. Try again.",
@@ -196,7 +196,6 @@ public class LoginPanel extends javax.swing.JPanel {
     private javax.swing.JLabel userNameLabel1;
     private javax.swing.JTextField userNameTextField1;
     private javax.swing.JLabel welcomeLabel;
-    //public static int userID;
     //public static String password;
     
     // End of variables declaration                   

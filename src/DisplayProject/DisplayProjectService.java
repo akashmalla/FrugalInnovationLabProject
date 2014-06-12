@@ -2,6 +2,7 @@ package DisplayProject;
 
 import javax.persistence.*;
 
+import PanelsInGUI.GUI;
 import ProjectManagement.ProjectManagement;
 import UserRegistration.UserRegistration;
 
@@ -15,7 +16,7 @@ public class DisplayProjectService {
 	 }
 	 
     // method to create a new record
-     public DisplayProject createUser(int fileID, String fileName, int level, String path) {
+     public DisplayProject createFile(int fileID, String fileName, int level, String path) {
     	 DisplayProject project = new DisplayProject();
  	    project.setFileID(fileID);
  	    project.setfileName(fileName);
@@ -26,16 +27,20 @@ public class DisplayProjectService {
      }
     
     // method to read a record
-     public DisplayProject readUser(String userID) {
-    	 DisplayProject project = manager.find(DisplayProject.class, userID);
+     public DisplayProject readFile(String fileID) {
+    	 DisplayProject project = manager.find(DisplayProject.class, fileID);
     	 return project;   	 
      }
 
      // method to read all records
      public List<DisplayProject> readAll() {
-    	 TypedQuery<DisplayProject> query = manager.createQuery("SELECT e FROM files e", DisplayProject.class);
-    	 List<DisplayProject> result =  query.getResultList();
+    	 GUI.LoginedUserLevel = 1;
+    	 //System.out.println(""+GUI.LoginedUserLevel);
+    	 TypedQuery<DisplayProject> query = manager.createQuery("SELECT e FROM files e WHERE e.fileLevel <= :uLevel AND e.projectID = :selectedPro", DisplayProject.class);
+    	 query.setParameter("uLevel", GUI.LoginedUserLevel);
+    	 query.setParameter("selectedPro", GUI.selectedProject);
 
+    	 List<DisplayProject> result =  query.getResultList();
     	 return result;   	 
      }
      
@@ -53,10 +58,10 @@ public class DisplayProjectService {
      }
 
     // method to delete a record
-    public void deleteUser(int userID) {
-    	 UserRegistration user = manager.find(UserRegistration.class, userID);
-    	 if (user != null) {
-    		 manager.remove(user);
+    public void deleteFile(int fileID) {
+    	 UserRegistration file = manager.find(UserRegistration.class, fileID);
+    	 if (file != null) {
+    		 manager.remove(file);
     	 }
     }
 }
