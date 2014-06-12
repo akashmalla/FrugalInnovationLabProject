@@ -1,11 +1,10 @@
 package PanelsInGUI;
 import java.awt.CardLayout;
-
-import ProjectManagement.ProjectManagementGUI;
-
-
-import Login.LoginPanel;
+<<<<<<< HEAD
 import AssignUsersToProjects.*;
+=======
+
+>>>>>>> FETCH_HEAD
 import java.awt.Component;
 
 
@@ -37,9 +36,13 @@ public class GUI extends javax.swing.JFrame {
         getMainPanel().add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
         getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
 
+<<<<<<< HEAD
+        cardLayout.show(getMainPanel(), "Display Project Panel");
+=======
 
         cardLayout.show(getMainPanel(), "Assign Users to Projects Panel");
 
+>>>>>>> FETCH_HEAD
 
     }
 

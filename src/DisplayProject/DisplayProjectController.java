@@ -48,7 +48,7 @@ public class DisplayProjectController implements ListSelectionListener, TableMod
 	   try {
 	    	// get the index of the inserted row
 	        //tableModel.getRowSet().moveToCurrentRow();
-	    	int firstIndex =  e.getFirstRow();
+	    	//int firstIndex =  e.getFirstRow();
 	    	
 	    	// create a new table model with the new data
 	        tableModel = new DisplayProjectTableModel(tableModel.getList(), tableModel.getEntityManager());

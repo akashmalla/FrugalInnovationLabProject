@@ -1,7 +1,10 @@
 package AssignUsersToProjects;
 
 import javax.persistence.EntityTransaction;
+
 import AssignUsersToProjects.*;
+import PanelsInGUI.AssignUsersToProjectsPanel;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;

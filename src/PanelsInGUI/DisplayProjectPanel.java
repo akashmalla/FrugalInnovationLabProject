@@ -22,7 +22,11 @@ public class DisplayProjectPanel extends javax.swing.JPanel {
 
 	
     public DisplayProjectPanel() {
+    	
         initComponents();
+        DisplayProjectController = new DisplayProject.DisplayProjectController(this);
+        addButtonJTable();
+        
     }
     
     public void addButtonJTable() {
