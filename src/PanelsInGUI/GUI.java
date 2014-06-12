@@ -1,11 +1,6 @@
 package PanelsInGUI;
 import java.awt.CardLayout;
 
-import ProjectManagement.ProjectManagementGUI;
-
-
-import Login.LoginPanel;
-import AssignUsersToProjects.*;
 import java.awt.Component;
 
 

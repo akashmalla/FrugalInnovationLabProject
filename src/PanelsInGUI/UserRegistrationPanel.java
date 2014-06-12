@@ -270,9 +270,9 @@ public class UserRegistrationPanel extends javax.swing.JPanel {
         }
         else{
 		    JOptionPane.showMessageDialog( controllingFrame,
-		                        "You need to input values for all text fields and radio buttons",
-		                        "Error Message",
-		                        JOptionPane.ERROR_MESSAGE);
+                "You need to input values for all text fields and radio buttons",
+                "Error Message",
+                JOptionPane.ERROR_MESSAGE);
         }
     }                                             
 
