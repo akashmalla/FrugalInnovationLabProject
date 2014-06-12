@@ -1,10 +1,8 @@
 package PanelsInGUI;
 import java.awt.CardLayout;
-<<<<<<< HEAD
-import AssignUsersToProjects.*;
-=======
 
->>>>>>> FETCH_HEAD
+import AssignUsersToProjects.*;
+
 import java.awt.Component;
 
 
@@ -30,19 +28,17 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         getMainPanel().setLayout(cardLayout);
         getMainPanel().add(new LoginPanel(), "Login Panel");
-        getMainPanel().add(new ProjectManagementPanel(), "Project Management Panel");
+        //getMainPanel().add(new ProjectManagementPanel(), "Project Management Panel");
         getMainPanel().add(new AddUpdatePanel(), "Add/Update Project Panel");
-        getMainPanel().add(new UserRegistrationPanel(), "User Registration Panel");
+        //getMainPanel().add(new UserRegistrationPanel(), "User Registration Panel");
         getMainPanel().add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
-        getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
+        //Create it when we use it. Do not create it here. 
+        //getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
 
-<<<<<<< HEAD
-        cardLayout.show(getMainPanel(), "Display Project Panel");
-=======
+        cardLayout.show(getMainPanel(), "Login Panel");
+        //cardLayout.show(getMainPanel(), "Display Project Panel");
 
-        cardLayout.show(getMainPanel(), "Assign Users to Projects Panel");
 
->>>>>>> FETCH_HEAD
 
     }
 
@@ -170,7 +166,9 @@ public class GUI extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+    	
+        
+    	try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -202,6 +200,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton imageIconButton;
     private static javax.swing.JPanel mainPanel;
     private java.awt.Panel titlePanel;
+    
+	public static int LoginedUserLevel;
+	public static int selectedProject;
+	public static String projectname;
     // End of variables declaration                   
+	public static String projectcat;
+	public static String projectstatus;
 
 }

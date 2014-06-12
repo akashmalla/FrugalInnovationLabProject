@@ -20,6 +20,8 @@ public class ProjectManagementPanel extends javax.swing.JPanel {
      */
     public ProjectManagementPanel() {
         initComponents();
+        ProjectManagementController = new ProjectManagement.ProjectManagementController(this);
+        addButtonJTable();
     }
     
     public void addButtonJTable() {
@@ -190,8 +192,10 @@ public class ProjectManagementPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                                   
 
-    private void displayProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
+    private void displayProjectButtonActionPerformed(java.awt.event.ActionEvent evt) { 
+        GUI.getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
+    	CardLayout cl = (CardLayout)(PanelsInGUI.GUI.getMainPanel().getLayout());
+        cl.show(PanelsInGUI.GUI.getMainPanel(), "Display Project Panel");
     }  
     
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {

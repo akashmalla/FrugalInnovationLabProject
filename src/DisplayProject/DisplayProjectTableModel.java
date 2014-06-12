@@ -150,7 +150,6 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 			DisplayProjectResultList.remove(index);
 			numrows--;
 
-			
 	 }
 	 
 	 public void updateRow(Object[] array){
