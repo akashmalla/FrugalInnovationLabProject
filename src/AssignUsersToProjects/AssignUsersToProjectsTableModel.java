@@ -1,5 +1,5 @@
 package AssignUsersToProjects;
-
+import  UserRegistration.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -15,12 +15,12 @@ import java.util.*;
 */
 public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 
-	  List<AssignUsersToProjects> assignUsersToProjectsResultList;   // stores the model data in a List collection of type UserRegistration
+	  List<UserRegistration> assignUsersToProjectsResultList;   // stores the model data in a List collection of type UserRegistration
 	  private static final String PERSISTENCE_UNIT_NAME = "PersistenceUnit";  // Used in persistence.xml
 	  private static EntityManagerFactory factory;  // JPA  
 	  private EntityManager manager;				// JPA 
-	  private AssignUsersToProjects assignUsersToProjects;			    // represents the entity courselist
-	  private AssignUsersToProjectsService assignUsersToProjectsService;
+	  private UserRegistration assignUsersToProjects;			    // represents the entity courselist
+	  private UserRegistrationService assignUsersToProjectsService;
 	
 	   // This field contains additional information about the results   
 	    int numcols, numrows;           // number of rows and columns
@@ -28,19 +28,19 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 	    AssignUsersToProjectsTableModel() {
 	    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	    manager = factory.createEntityManager();
-	    assignUsersToProjects = new AssignUsersToProjects();
-	    assignUsersToProjectsService = new AssignUsersToProjectsService(manager);
+	    assignUsersToProjects = new UserRegistration();
+	    assignUsersToProjectsService = new UserRegistrationService(manager);
 	    
 	    // read all the records from courselist
 	    assignUsersToProjectsResultList = assignUsersToProjectsService.readAll();
 	    
 	    // update the number of rows and columns in the model
 	    numrows = assignUsersToProjectsResultList.size();
-	    numcols = assignUsersToProjectsService.size();
+	    numcols = assignUsersToProjects.getNumberOfColumns();
       }
 	    
-		public AssignUsersToProjects readUserByUserID(String user_ID) {
-			return assignUsersToProjectsService.readUserByUserID(user_ID);
+		public UserRegistration readUser(int user_ID) {
+			return assignUsersToProjectsService.readUser(user_ID);
 		}
 
 	 // returns a count of the number of rows
@@ -85,7 +85,7 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 	 public void setValueAt(Object aValue, int row, int col) {
 		//data[rowIndex][columnIndex] = (String) aValue;
 		try {
-			AssignUsersToProjects element = assignUsersToProjectsResultList.get(row);
+			UserRegistration element = assignUsersToProjectsResultList.get(row);
                    element.setColumnData(col, aValue); 
             fireTableCellUpdated(row, col);
 		} catch(Exception err) {
@@ -93,7 +93,7 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 		}	
 	 }
 	
-	 public List<AssignUsersToProjects> getList() {
+	 public List<UserRegistration> getList() {
 		 return assignUsersToProjectsResultList;
 	 }
 
@@ -102,13 +102,13 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
 	 }
 
 	 // create a new table model using the existing data in list
-	 public AssignUsersToProjectsTableModel(List<AssignUsersToProjects> list, EntityManager em)  {
+	 public AssignUsersToProjectsTableModel(List<UserRegistration> list, EntityManager em)  {
 		assignUsersToProjectsResultList = list;
 	    numrows = assignUsersToProjectsResultList.size();
-	    assignUsersToProjects = new AssignUsersToProjects();
+	    assignUsersToProjects = new UserRegistration();
 	   	numcols = assignUsersToProjects.getNumberOfColumns();     
 		manager = em;  
-		assignUsersToProjectsService = new AssignUsersToProjectsService(manager);
+		assignUsersToProjectsService = new UserRegistrationService(manager);
 	 }
 	 
 	 // In this method, a newly inserted row in the GUI is added to the table model as well as the database table
@@ -135,19 +135,19 @@ public class AssignUsersToProjectsTableModel extends AbstractTableModel {
          
          numrows++;
 	 }*/
-	 
+	 /*
 	 public void searchByUserId(String userID) {
-		  AssignUsersToProjects newRecord = assignUsersToProjectsService.readUserByUserID(userID);
+		  UserRegistration newRecord = assignUsersToProjectsService.readUser(Integer.parseInt(userID));
 		  assignUsersToProjectsResultList.add(newRecord);
 	      int row = assignUsersToProjectsResultList.size();  
 	      int col = 0;
 
 	      setValueAt((String) (new Integer(newRecord.getUser_ID())).toString(), row-1, col++);
-	      setValueAt((String) newRecord.getFirstName(), row-1, col++);
-	      setValueAt((String) newRecord.getLastName(), row-1, col++);
+	      setValueAt((String) newRecord.getUserName(), row-1, col++);
+	      //setValueAt((String) newRecord.getLastName(), row-1, col++);
 	      setValueAt((String) newRecord.gettypeOfUser(), row-1, col++);
 	      
 	      numrows = 1;
-	 }
+	 }*/
 	 
 }
