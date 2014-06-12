@@ -54,8 +54,12 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	 // returns the data at the given row and column number
 	 public Object getValueAt(int row, int col) {
 		try {
+			  System.out.println("LIST IS: "+DisplayProjectResultList.get(row).getColumnData(col));
+
 		  return DisplayProjectResultList.get(row).getColumnData(col);
 		} catch (Exception e) {
+			
+			System.out.println("getValueAt err");
 			e.getMessage();
 			return null;
 		}
@@ -73,7 +77,7 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	 // returns the name of the column
 	 public String getColumnName(int col) {
 		   try {
-				return ProjectManagement.getColumnName(col);
+				return DisplayProject.getColumnName(col);
 			} catch (Exception err) {
 	             return err.toString();
 	       }             
