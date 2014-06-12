@@ -1,17 +1,59 @@
 package PanelsInGUI;
 
+import java.awt.*;
+import javax.swing.*;
+
+
+import UserRegistration.UserRegistrationController;
+
 /**
  *
  * @author akash
  */
 public class UserRegistrationPanel extends javax.swing.JPanel {
-
+	
+	private JTable jtable1; // the table displayed on the GUI
+    private UserRegistrationController UserRegistrationController; // glue between model and gui
     /**
      * Creates new form UserRegistrationPanel
      */
     public UserRegistrationPanel() {
         initComponents();
     }
+    
+    public void addButtonJTable() {
+    	// addButton the data and column names to a JTable
+    	//jtable1  = new JTable(UserListTableController.getData(), UserListTableController.getColumnNames());
+    	  
+    	jtable1 = new JTable(UserRegistrationController.getTableModel());
+    	// addButton a ListSelectionListener to the table
+    	jtable1.getSelectionModel().addListSelectionListener(UserRegistrationController);
+    	// addButton the table to a scrollpane
+    	JScrollPane scrollpane = new JScrollPane(jtable1);
+    	UserListTablePanel.setLayout(new BorderLayout());
+    	UserListTablePanel.add(scrollpane, BorderLayout.CENTER);
+    }
+    	    
+	    public void updateTable() {
+	    	jtable1.setModel(UserRegistrationController.getTableModel());
+	    }
+
+    	public void setPasswordTextField(String val) {
+    		passwordTextField.setText(val);
+    	}
+    	
+    	public void setTypeOfUserTextField(String val) {
+    		passwordTextField.setText(val);
+    	}	
+
+    	public void setUserIDTextField(String val) {
+    		userIDTextField.setText(val);;
+    	}
+
+    	public void setUserNameTextField(String val) {
+    		userNameTextField.setText(val);
+    	}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -197,14 +239,77 @@ public class UserRegistrationPanel extends javax.swing.JPanel {
 
     private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
+    	//addButton a row to the table
+        String[] array = new String[jtable1.getColumnCount()];
+        array[0] = userIDTextField.getText();
+        array[1] = userNameTextField.getText();
+        array[2] = passwordTextField.getText(); 
+        
+        if(jRadioButton1.isSelected()){
+        	array[3] = jRadioButton1.getText();
+        }
+        else if(jRadioButton2.isSelected()){
+        	array[3] = jRadioButton2.getText();
+        }
+       
+        Component controllingFrame = null;
+        if(array[0] != null && array[1] != null && array[2] != null && array[3] != null){
+        	int count = 0;
+            for(int row = 0; row <= jtable1.getRowCount() - 1; row++) {
+	            if(jtable1.getValueAt(row, 0).equals(array[0])){
+	            JOptionPane.showMessageDialog( controllingFrame,
+	                "You need to enter a unique user ID number that was not used before.",
+	                "Error Message",
+	                JOptionPane.ERROR_MESSAGE);
+	            count++;
+	            }	
+            }
+	        if(count == 0){
+	        	UserRegistrationController.addRow(array);
+	        }
+        }
+        else{
+		    JOptionPane.showMessageDialog( controllingFrame,
+		                        "You need to input values for all text fields and radio buttons",
+		                        "Error Message",
+		                        JOptionPane.ERROR_MESSAGE);
+        }
     }                                             
 
     private void deleteUserButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
+    	int index = jtable1.getSelectedRow();
+        int userID = Integer.parseInt((String) UserRegistrationController.getTableModel().getValueAt(index, 0));
+        UserRegistrationController.deleteRow(userID);
+        jtable1.revalidate();
     }                                                
 
     private void updateUserButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
+    	//addButton a row to the table
+        //int index = jtable1.getSelectedRow();
+        String[] array = new String[jtable1.getColumnCount()];
+        array[0] = userIDTextField.getText();
+        array[1] = userNameTextField.getText();
+        array[2] = passwordTextField.getText(); 
+        
+        if(jRadioButton1.isSelected()){
+        	array[3] = jRadioButton1.getText();
+        }
+        else if(jRadioButton2.isSelected()){
+        	array[3] = jRadioButton2.getText();
+        }
+       
+        Component controllingFrame = null;
+        if(array[0] != null && array[1] != null && array[2] != null && array[3] != null){
+        	UserRegistrationController.updateRow(array);
+        }
+        else{
+        	JOptionPane.showMessageDialog( controllingFrame,
+                        "You need to input values for all text fields and radio buttons",
+                        "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+        }
     }                                                
 
     private void userIDTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                

@@ -7,6 +7,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import javax.swing.event.*;
 
+import PanelsInGUI.UserRegistrationPanel;
+
 
 /**
 * Glue between the view (CourseListGUI) and the model (CourseListTableModel). 
@@ -14,10 +16,10 @@ import javax.swing.event.*;
 * @author rgrover
 */
 public class UserRegistrationController implements ListSelectionListener, TableModelListener{
-	private UserRegistrationTableModel tableModel;
-	private UserRegistrationGUI gui;
+	private static UserRegistrationTableModel tableModel;
+	private UserRegistrationPanel gui;
 	
-	public UserRegistrationController(UserRegistrationGUI gui) {
+	public UserRegistrationController(UserRegistrationPanel gui) {
 		this.gui = gui;   
          // create the tableModel using the data in the cachedRowSet
 		tableModel = new UserRegistrationTableModel(); 
@@ -26,7 +28,7 @@ public class UserRegistrationController implements ListSelectionListener, TableM
 	
 	
 	// new code
-	public TableModel getTableModel() {
+	public static TableModel getTableModel() {
 		return tableModel;
 	}
 	

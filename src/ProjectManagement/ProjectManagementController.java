@@ -7,6 +7,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import javax.swing.event.*;
 
+import PanelsInGUI.ProjectManagementPanel;
+
 
 /**
 * Glue between the view (CourseListGUI) and the model (CourseListTableModel). 
@@ -15,9 +17,9 @@ import javax.swing.event.*;
 */
 public class ProjectManagementController implements ListSelectionListener, TableModelListener{
 	private ProjectManagementTableModel tableModel;
-	private ProjectManagementGUI gui;
+	private ProjectManagementPanel gui;
 	
-	public ProjectManagementController(ProjectManagementGUI gui) {
+	public ProjectManagementController(ProjectManagementPanel gui) {
 		this.gui = gui;   
          // create the tableModel using the data in the cachedRowSet
 		tableModel = new ProjectManagementTableModel(); 
