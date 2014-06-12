@@ -1,9 +1,22 @@
 <<<<<<< HEAD
+/AddUpdateProject
+/AssignUsersToProjects
+/DisplayProject
+/Login
+/PanelsInGUI
+/ProjectManagement
+/UserRegistration
+=======
+<<<<<<< HEAD
 /PanelsInGUI
 /DisplayProject
 =======
 /AssignUsersToProjects
 >>>>>>> FETCH_HEAD
+<<<<<<< HEAD
 /META-INF
 /UserRegistration
 /Login
+=======
+>>>>>>> origin/master
+>>>>>>> FETCH_HEAD
