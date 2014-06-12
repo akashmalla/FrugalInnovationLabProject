@@ -14,20 +14,22 @@ import javax.swing.event.*;
 * @author rgrover
 */
 public class AssignUsersToProjectsController implements ListSelectionListener, TableModelListener{
-	private UserRegistrationTableModel tableModel;
-	private UserRegistrationGUI gui;
+	private AssignUsersToProjectsTableModel tableModel;
+	private AssignUsersToProjectsPanel gui;
 	
-	public AssignUsersToProjectsController(UserRegistrationGUI gui) {
+	public AssignUsersToProjectsController(AssignUsersToProjectsPanel gui) {
 		this.gui = gui;   
          // create the tableModel using the data in the cachedRowSet
-		tableModel = new UserRegistrationTableModel(); 
+		tableModel = new AssignUsersToProjectsTableModel(); 
 		tableModel.addTableModelListener(this);
 	}
 	
-	
+	public AssignUsersToProjects readUserByUserID(String user_ID) {
+		return tableModel.readUserByUserID(user_ID);
+	}
 	// new code
 	public TableModel getTableModel() {
-		return tableModel;
+		return this.tableModel;
 	}
 	
 	public void valueChanged(ListSelectionEvent e) {
@@ -35,10 +37,10 @@ public class AssignUsersToProjectsController implements ListSelectionListener, T
 		int firstIndex = selectModel.getMinSelectionIndex();
 		
 		// read the data in each column using getValueAt and display it on corresponding textfield
-		gui.setUserIDTextField( (String) tableModel.getValueAt(firstIndex, 0));
-		gui.setUserNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
-		gui.setPasswordTextField( (String) tableModel.getValueAt(firstIndex, 2));
-		//gui.setTypeOfUserTextField( (String) tableModel.getValueAt(firstIndex, 3));
+		System.out.print("Valuechanged" + ((String) tableModel.getValueAt(firstIndex, 0)));
+		System.out.print("Valuechanged" + ((String) tableModel.getValueAt(firstIndex, 1)));
+		System.out.print("Valuechanged" +((String) tableModel.getValueAt(firstIndex, 2)));
+		System.out.println("Valuechanged" +((String) tableModel.getValueAt(firstIndex, 3)));
 	}
 	
 	public void tableChanged(TableModelEvent e)
@@ -49,23 +51,23 @@ public class AssignUsersToProjectsController implements ListSelectionListener, T
 	    	int firstIndex =  e.getFirstRow();
 	    	
 	    	// create a new table model with the new data
-	        tableModel = new UserRegistrationTableModel(tableModel.getList(), tableModel.getEntityManager());
+	        tableModel = new AssignUsersToProjectsTableModel(tableModel.getList(), tableModel.getEntityManager());
 	        tableModel.addTableModelListener(this);
 	        // update the JTable with the data
 	    	gui.updateTable();
 	    
 	        // read the data in each column using getValueAt and display it on corresponding textfield
-	    	gui.setUserIDTextField( (String) tableModel.getValueAt(firstIndex, 0));
-			gui.setUserNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
-			gui.setPasswordTextField( (String) tableModel.getValueAt(firstIndex, 2));
-			//gui.setTypeOfUserTextField( (String) tableModel.getValueAt(firstIndex, 3));
+	    	System.out.print("tableChanged" + ((String) tableModel.getValueAt(firstIndex, 0)));
+	    	System.out.print("tableChanged" + ((String) tableModel.getValueAt(firstIndex, 1)));
+	    	System.out.print("tableChanged" + ((String) tableModel.getValueAt(firstIndex, 2)));
+	    	System.out.println("tableChanged" + ((String) tableModel.getValueAt(firstIndex, 3)));
 			
 	} catch(Exception exp) {
 		exp.getMessage();
 		exp.printStackTrace();
 		}
 	}
-
+/*
 	public void addRow(String[] array) {
 		tableModel.addRow(array);			
 	}
@@ -74,6 +76,6 @@ public class AssignUsersToProjectsController implements ListSelectionListener, T
 	}
 	public void updateRow(String[] array) {
 		tableModel.updateRow(array);			
-	}
+	}*/
 }
 
