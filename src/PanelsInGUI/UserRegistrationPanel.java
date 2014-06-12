@@ -48,7 +48,7 @@ public class UserRegistrationPanel extends javax.swing.JPanel {
     	}	
 
     	public void setUserIDTextField(String val) {
-    		userIDTextField.setText(val);;
+    		userIDTextField.setText(val);
     	}
 
     	public void setUserNameTextField(String val) {
