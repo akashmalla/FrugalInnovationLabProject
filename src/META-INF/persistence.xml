@@ -5,7 +5,6 @@
 		 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		 <class>		UserRegistration.UserRegistration			</class>
 		 <class>		ProjectManagement.ProjectManagement			</class>
-		 <class>	 	AssignUsersToProjects.AssignUsersToProjects	</class>
 		 <class>		DisplayProject.DisplayProject				</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/project"/>

@@ -1,6 +1,7 @@
 package UserRegistration;
 
 import javax.persistence.*;
+
 import java.util.*;
 
 public class UserRegistrationService {
@@ -20,6 +21,7 @@ public class UserRegistrationService {
  	    manager.persist(user);
  	    return user;
      }
+     
     
     // method to read a record
      public UserRegistration readUser(int id) {

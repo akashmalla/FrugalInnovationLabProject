@@ -1,4 +1,5 @@
 package AssignUsersToProjects;
+import UserRegistration.*;
 
 import javax.persistence.EntityTransaction;
 
@@ -28,8 +29,8 @@ public class AssignUsersToProjectsController implements ListSelectionListener, T
 		tableModel.addTableModelListener(this);
 	}
 	
-	public AssignUsersToProjects readUserByUserID(String user_ID) {
-		return tableModel.readUserByUserID(user_ID);
+	public UserRegistration readUserByUserID(int user_ID) {
+		return tableModel.readUser(user_ID);
 	}
 	// new code
 	public TableModel getTableModel() {

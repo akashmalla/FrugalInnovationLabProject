@@ -6,7 +6,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.swing.table.*;
 import javax.persistence.*;
-
 import java.util.*;
 
 /**
