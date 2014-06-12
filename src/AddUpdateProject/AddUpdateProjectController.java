@@ -8,6 +8,7 @@ import javax.swing.table.TableModel;
 import javax.swing.event.*;
 
 import PanelsInGUI.AddUpdateProjectPanel;
+import PanelsInGUI.GUI;
 
 
 /**
@@ -37,10 +38,19 @@ public class AddUpdateProjectController implements ListSelectionListener, TableM
 		int firstIndex = selectModel.getMinSelectionIndex();
 		
 		// read the data in each column using getValueAt and display it on corresponding textfield
-		gui.setProjectIDTextField( (String) tableModel.getValueAt(firstIndex, 0));
-		gui.setProjectNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
-		gui.setStatusTextField( (String) tableModel.getValueAt(firstIndex, 2));
-		gui.setCategoryTextField( (String) tableModel.getValueAt(firstIndex, 3));
+		GUI.selectedProject = Integer.parseInt((String)tableModel.getValueAt(firstIndex, 0));
+		System.out.println(GUI.selectedProject);
+		GUI.projectname = (String) tableModel.getValueAt(firstIndex, 1);
+		System.out.println(GUI.projectname);
+		GUI.projectcat = (String) tableModel.getValueAt(firstIndex, 2);
+		GUI.projectstatus = (String) tableModel.getValueAt(firstIndex, 3);
+		GUI.projectdescription = (String) tableModel.getValueAt(firstIndex, 4);
+		
+		gui.setProjectIDTextField( GUI.selectedProject);
+		gui.setProjectNameTextField( GUI.projectname);
+		gui.setDescriptionTextArea( GUI.projectdescription);
+		//gui.setStatusTextField( (String) tableModel.getValueAt(firstIndex, 2));
+		//gui.setCategoryTextField( (String) tableModel.getValueAt(firstIndex, 3));
 	}
 	
 	public void tableChanged(TableModelEvent e)
@@ -57,8 +67,8 @@ public class AddUpdateProjectController implements ListSelectionListener, TableM
 	    	gui.updateTable();
 	    
 	        // read the data in each column using getValueAt and display it on corresponding textfield
-			gui.setFileNameTextField( (String) tableModel.getValueAt(firstIndex, 0));
-			gui.setFilePathTextField( (String) tableModel.getValueAt(firstIndex, 1));
+			gui.setProjectIDTextField( (String) tableModel.getValueAt(firstIndex, 0));
+			gui.setProjectNameTextField( (String) tableModel.getValueAt(firstIndex, 1));
 			//gui.setPasswordTextField( (String) tableModel.getValueAt(firstIndex, 2));
 			//gui.setTypeOfUserTextField( (String) tableModel.getValueAt(firstIndex, 3));
 			

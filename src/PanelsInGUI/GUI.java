@@ -28,11 +28,11 @@ public class GUI extends javax.swing.JFrame {
         getMainPanel().setLayout(cardLayout);
         getMainPanel().add(new LoginPanel(), "Login Panel");
         getMainPanel().add(new ProjectManagementPanel(), "Project Management Panel");
-        //getMainPanel().add(new AddUpdatePanel(), "Add/Update Project Panel");
+        //getMainPanel().add(new AddUpdateProjectPanel(), "Add/Update Project Panel");
         getMainPanel().add(new UserRegistrationPanel(), "User Registration Panel");
         getMainPanel().add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
+        //Create it when we use it. Do not create it here. 
         getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
-
 
         cardLayout.show(getMainPanel(), "Assign Users to Projects Panel");
 
@@ -64,7 +64,7 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        imageIconButton.setIcon(new javax.swing.ImageIcon("/Users/akash/Desktop/frugalLabPic.png")); // NOI18N
+        imageIconButton.setIcon(new javax.swing.ImageIcon("/Users/akash/Desktop/frugallabpics/frugalLabPic.png")); // NOI18N
         imageIconButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imageIconButtonActionPerformed(evt);
