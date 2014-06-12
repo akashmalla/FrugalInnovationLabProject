@@ -17,7 +17,7 @@ import java.util.*;
 */
 public class DisplayProjectTableModel extends AbstractTableModel {
 
-	  List<ProjectManagement> UserRegistrationResultList;   // stores the model data in a List collection of type UserRegistration
+	  List<DisplayProject> DisplayProjectResultList;   // stores the model data in a List collection of type UserRegistration
 	  private static final String PERSISTENCE_UNIT_NAME = "PersistenceUnit";  // Used in persistence.xml
 	  private static EntityManagerFactory factory;  // JPA  
 	  private EntityManager manager;				// JPA 
@@ -34,10 +34,10 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	    DisplayProjectService = new DisplayProjectService(manager);
 	    
 	    // read all the records from courselist
-	    UserRegistrationResultList = DisplayProjectService.readAll();
+	    DisplayProjectResultList = DisplayProjectService.readAll();
 	    
 	    // update the number of rows and columns in the model
-	    numrows = UserRegistrationResultList.size();
+	    numrows = DisplayProjectResultList.size();
 	    numcols = ProjectManagement.getNumberOfColumns();
       }
 
@@ -54,7 +54,7 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	 // returns the data at the given row and column number
 	 public Object getValueAt(int row, int col) {
 		try {
-		  return UserRegistrationResultList.get(row).getColumnData(col);
+		  return DisplayProjectResultList.get(row).getColumnData(col);
 		} catch (Exception e) {
 			e.getMessage();
 			return null;
@@ -83,7 +83,7 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	 public void setValueAt(Object aValue, int row, int col) {
 		//data[rowIndex][columnIndex] = (String) aValue;
 		try {
-			ProjectManagement element = UserRegistrationResultList.get(row);
+			DisplayProject element = DisplayProjectResultList.get(row);
                    element.setColumnData(col, aValue); 
             fireTableCellUpdated(row, col);
 		} catch(Exception err) {
@@ -91,8 +91,8 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 		}	
 	 }
 	
-	 public List<ProjectManagement> getList() {
-		 return UserRegistrationResultList;
+	 public List<DisplayProject> getList() {
+		 return DisplayProjectResultList;
 	 }
 
 	 public EntityManager getEntityManager() {
@@ -100,9 +100,9 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	 }
 
 	 // create a new table model using the existing data in list
-	 public DisplayProjectTableModel(List<ProjectManagement> list, EntityManager em)  {
-	    UserRegistrationResultList = list;
-	    numrows = UserRegistrationResultList.size();
+	 public DisplayProjectTableModel(List<DisplayProject> list, EntityManager em)  {
+	    DisplayProjectResultList = list;
+	    numrows = DisplayProjectResultList.size();
 	    ProjectManagement = new ProjectManagement();
 	   	numcols = ProjectManagement.getNumberOfColumns();     
 		manager = em;  
@@ -121,8 +121,8 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 		userTransaction.commit();
 		 
 		// set the current row to rowIndex
-        //UserRegistrationResultList.add(newRecord);
-        int row = UserRegistrationResultList.size();  
+        //DisplayProjectResultList.add(newRecord);
+        int row = DisplayProjectResultList.size();  
         int col = 0;
 
         // update the data in the model to the entries in array
@@ -135,7 +135,7 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	 
 	 public void deleteRow(int userID){
 			//data[rowIndex][columnIndex] = (String) aValue;
-			int index = UserRegistrationResultList.indexOf(manager.find(ProjectManagement.class, userID));
+			int index = DisplayProjectResultList.indexOf(manager.find(ProjectManagement.class, userID));
 
 		    // add row to database
 		    System.out.println(index);
@@ -143,7 +143,7 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 			userTransaction.begin();
 			DisplayProjectService.deleteUser(userID);
 			userTransaction.commit();
-			UserRegistrationResultList.remove(index);
+			DisplayProjectResultList.remove(index);
 			numrows--;
 
 			
@@ -152,7 +152,7 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	 public void updateRow(Object[] array){
 			//data[rowIndex][columnIndex] = (String) aValue;
 		 	int userID = Integer.parseInt((String) array[0]); 
-			int index = UserRegistrationResultList.indexOf(manager.find(ProjectManagement.class, userID));
+			int index = DisplayProjectResultList.indexOf(manager.find(ProjectManagement.class, userID));
 			int col = 0;
 			
 		    // add row to database
@@ -162,7 +162,7 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 			userTransaction.commit();
 			
 			// set the current row to rowIndex
-	        //UserRegistrationResultList.add(updateRecord);
+	        //DisplayProjectResultList.add(updateRecord);
 			for(Object data : array){
 				setValueAt((String)data, index, col++);
 			}	

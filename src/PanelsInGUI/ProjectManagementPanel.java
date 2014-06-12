@@ -1,18 +1,43 @@
 package PanelsInGUI;
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import ProjectManagement.HighlightRenderer;
+import ProjectManagement.ProjectManagementController;
+
 /**
  *
  * @author akash
  */
 public class ProjectManagementPanel extends javax.swing.JPanel {
-
+	
+	private JTable jtable1; // the table displayed on the GUI
+	private ProjectManagementController ProjectManagementController;
     /**
      * Creates new form ProjectManagementPanel
      */
     public ProjectManagementPanel() {
         initComponents();
     }
-
+    
+    public void addButtonJTable() {
+    	// addButton the data and column names to a JTable
+    	//jtable1  = new JTable(UserListTableController.getData(), UserListTableController.getColumnNames());
+    	  
+    	   jtable1 = new JTable(ProjectManagementController.getTableModel());
+    	// addButton a ListSelectionListener to the table
+    	jtable1.getSelectionModel().addListSelectionListener(ProjectManagementController);
+    	// addButton the table to a scrollpane
+    	JScrollPane scrollpane = new JScrollPane(jtable1);
+    	projectInfoTablePanel.setLayout(new BorderLayout());
+    	projectInfoTablePanel.add(scrollpane, BorderLayout.CENTER);
+    }
+    	   
+    public void updateTable() {
+    	jtable1.setModel(ProjectManagementController.getTableModel());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,10 +70,25 @@ public class ProjectManagementPanel extends javax.swing.JPanel {
         });
 
         deleteProjectButton.setText("Delete");
+        deleteProjectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteProjectButtonActionPerformed(evt);
+            }
+        });
 
         updateProjectButton.setText("Update");
+        updateProjectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateProjectButtonActionPerformed(evt);
+            }
+        });
 
         displayProjectButton.setText("Display Project");
+        displayProjectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayProjectButtonActionPerformed(evt);
+            }
+        });
 
         projectInfoTablePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Project Information Table"));
 
@@ -136,7 +176,47 @@ public class ProjectManagementPanel extends javax.swing.JPanel {
 
     private void addProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
-    }                                                
+    }                    
+    
+    private void deleteProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        // TODO add your handling code here:
+    	int index = jtable1.getSelectedRow();
+    	int projectID = Integer.parseInt((String) ProjectManagementController.getTableModel().getValueAt(index, 0));
+    	ProjectManagementController.deleteRow(projectID);
+    	jtable1.revalidate();
+    } 
+    
+    private void updateProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+        // TODO add your handling code here:
+    }                                                   
+
+    private void displayProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        // TODO add your handling code here:
+    }  
+    
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    String value = searchTextField.getText();
+
+    for (int row = 0; row <= jtable1.getRowCount() - 1; row++) {
+
+        for (int col = 0; col <= jtable1.getColumnCount() - 1; col++) {
+
+            if (value.equals(jtable1.getValueAt(row, col))) {
+
+                // this will automatically set the view of the scroll in the location of the value
+            	jtable1.scrollRectToVisible(jtable1.getCellRect(row, 0, true));
+
+                // this will automatically set the focus of the searched/selected row/value
+            	jtable1.setRowSelectionInterval(row, row);
+
+                for (int i = 0; i <= jtable1.getColumnCount() - 1; i++) {
+
+                	jtable1.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
+                }
+            }
+        }
+    }
+    }
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:

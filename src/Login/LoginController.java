@@ -6,6 +6,8 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 import javax.swing.event.*;
 
+import PanelsInGUI.LoginPanel;
+
 
 /**
 * Glue between the view (CourseListGUI) and the model (CourseListTableModel). 

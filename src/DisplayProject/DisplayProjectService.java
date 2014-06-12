@@ -3,6 +3,7 @@ package DisplayProject;
 import javax.persistence.*;
 
 import ProjectManagement.ProjectManagement;
+import UserRegistration.UserRegistration;
 
 import java.util.*;
 
@@ -14,26 +15,26 @@ public class DisplayProjectService {
 	 }
 	 
     // method to create a new record
-     public ProjectManagement createUser(int userID, String userName, String password, String typeOfUser) {
-    	 ProjectManagement user = new ProjectManagement();
- 	    user.setUser_ID(userID);
- 	    user.setUserName(userName);
- 	    user.setPassword(password);
- 	    user.setTypeOfUser(typeOfUser);
- 	    manager.persist(user);
- 	    return user;
+     public DisplayProject createUser(int fileID, String fileName, int level, String path) {
+    	 DisplayProject project = new DisplayProject();
+ 	    project.setFileID(fileID);
+ 	    project.setfileName(fileName);
+ 	    project.setfileLevel(level);
+ 	    project.setfilePath(path);
+ 	    manager.persist(project);
+ 	    return project;
      }
     
     // method to read a record
-     public UserRegistration readUser(String userID) {
-    	 UserRegistration user = manager.find(UserRegistration.class, userID);
-    	 return user;   	 
+     public DisplayProject readUser(String userID) {
+    	 DisplayProject project = manager.find(DisplayProject.class, userID);
+    	 return project;   	 
      }
 
      // method to read all records
-     public List<ProjectManagement> readAll() {
-    	 TypedQuery<UserRegistration> query = manager.createQuery("SELECT e FROM UserRecord e", UserRegistration.class);
-    	 List<UserRegistration> result =  query.getResultList();
+     public List<DisplayProject> readAll() {
+    	 TypedQuery<DisplayProject> query = manager.createQuery("SELECT e FROM files e", DisplayProject.class);
+    	 List<DisplayProject> result =  query.getResultList();
 
     	 return result;   	 
      }

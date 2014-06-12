@@ -34,12 +34,12 @@ public class DisplayProjectController implements ListSelectionListener, TableMod
 	
 	public void valueChanged(ListSelectionEvent e) {
 		ListSelectionModel selectModel = (ListSelectionModel) e.getSource();
-		int firstIndex = selectModel.getMinSelectionIndex();
+		//int firstIndex = selectModel.getMinSelectionIndex();
 		
 		// read the data in each column using getValueAt and display it on corresponding textfield
-		gui.setProjectNameTextField( (String) tableModel.getValueAt(firstIndex, 0));
-		gui.setCategoryTextField( (String) tableModel.getValueAt(firstIndex, 1));
-		gui.setStatusTextField( (String) tableModel.getValueAt(firstIndex, 2));
+		//gui.setProjectNameTextField( (String) tableModel.getValueAt(firstIndex, 0));
+		//gui.setCategoryTextField( (String) tableModel.getValueAt(firstIndex, 1));
+		//gui.setStatusTextField( (String) tableModel.getValueAt(firstIndex, 2));
 		//gui.setTypeOfUserTextField( (String) tableModel.getValueAt(firstIndex, 3));
 	}
 	
@@ -57,9 +57,9 @@ public class DisplayProjectController implements ListSelectionListener, TableMod
 	    	gui.updateTable();
 	    
 	        // read the data in each column using getValueAt and display it on corresponding textfield
-	    	gui.setProjectNameTextField( (String) tableModel.getValueAt(firstIndex, 0));
-			gui.setCategoryTextField( (String) tableModel.getValueAt(firstIndex, 1));
-			gui.setStatusTextField( (String) tableModel.getValueAt(firstIndex, 2));
+	    	//gui.setProjectNameTextField( (String) tableModel.getValueAt(firstIndex, 0));
+			//gui.setCategoryTextField( (String) tableModel.getValueAt(firstIndex, 1));
+			//gui.setStatusTextField( (String) tableModel.getValueAt(firstIndex, 2));
 			//gui.setTypeOfUserTextField( (String) tableModel.getValueAt(firstIndex, 3));
 			
 	} catch(Exception exp) {

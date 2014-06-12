@@ -1,4 +1,4 @@
-package Login;
+package PanelsInGUI;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.Arrays;
@@ -6,6 +6,8 @@ import java.util.Arrays;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 
+import Login.LoginController;
+import Login.LoginTableModel;
 import PanelsInGUI.GUI;
 import UserRegistration.UserRegistration;
 import UserRegistration.UserRegistrationService;
@@ -161,7 +163,7 @@ public class LoginPanel extends javax.swing.JPanel {
         String password = new String(logInPasswordField.getPassword());
         System.out.println(""+password);
         LoginTableModel auth = new LoginTableModel();
-        boolean isCorrect = auth.authrization(userID, password);
+        boolean isCorrect = auth.authorization(userID, password);
 		if (isCorrect) {
             JOptionPane.showMessageDialog(controllingFrame,
                 "Success! You typed the right password.");
