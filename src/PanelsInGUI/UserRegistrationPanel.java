@@ -19,6 +19,7 @@ public class UserRegistrationPanel extends javax.swing.JPanel {
      */
     public UserRegistrationPanel() {
         initComponents();
+        addButtonJTable();
     }
     
     public void addButtonJTable() {

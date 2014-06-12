@@ -15,7 +15,7 @@ public class DisplayProjectService {
 	 }
 	 
     // method to create a new record
-     public DisplayProject createUser(int fileID, String fileName, int level, String path) {
+     public DisplayProject createFile(int fileID, String fileName, int level, String path) {
     	 DisplayProject project = new DisplayProject();
  	    project.setFileID(fileID);
  	    project.setfileName(fileName);
@@ -26,8 +26,8 @@ public class DisplayProjectService {
      }
     
     // method to read a record
-     public DisplayProject readUser(String userID) {
-    	 DisplayProject project = manager.find(DisplayProject.class, userID);
+     public DisplayProject readFile(String fileID) {
+    	 DisplayProject project = manager.find(DisplayProject.class, fileID);
     	 return project;   	 
      }
 
@@ -53,10 +53,10 @@ public class DisplayProjectService {
      }
 
     // method to delete a record
-    public void deleteUser(int userID) {
-    	 UserRegistration user = manager.find(UserRegistration.class, userID);
-    	 if (user != null) {
-    		 manager.remove(user);
+    public void deleteFile(int fileID) {
+    	 UserRegistration file = manager.find(UserRegistration.class, fileID);
+    	 if (file != null) {
+    		 manager.remove(file);
     	 }
     }
 }

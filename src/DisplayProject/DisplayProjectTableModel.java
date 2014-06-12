@@ -117,7 +117,7 @@ public class DisplayProjectTableModel extends AbstractTableModel {
 	    // add row to database
 		EntityTransaction userTransaction = manager.getTransaction();  
 		userTransaction.begin();
-		//ProjectManagement newRecord = DisplayProjectService.createUser(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3]);
+		//ProjectManagement newRecord = DisplayProjectService.createFile(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3]);
 		userTransaction.commit();
 		 
 		// set the current row to rowIndex
@@ -133,15 +133,15 @@ public class DisplayProjectTableModel extends AbstractTableModel {
          numrows++;
 	 }
 	 
-	 public void deleteRow(int userID){
+	 public void deleteRow(int fileID){
 			//data[rowIndex][columnIndex] = (String) aValue;
-			int index = DisplayProjectResultList.indexOf(manager.find(ProjectManagement.class, userID));
+			int index = DisplayProjectResultList.indexOf(manager.find(ProjectManagement.class, fileID));
 
 		    // add row to database
 		    System.out.println(index);
 			EntityTransaction userTransaction = manager.getTransaction();  
 			userTransaction.begin();
-			DisplayProjectService.deleteUser(userID);
+			DisplayProjectService.deleteFile(fileID);
 			userTransaction.commit();
 			DisplayProjectResultList.remove(index);
 			numrows--;

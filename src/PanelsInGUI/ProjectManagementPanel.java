@@ -20,13 +20,15 @@ public class ProjectManagementPanel extends javax.swing.JPanel {
      */
     public ProjectManagementPanel() {
         initComponents();
+        ProjectManagementController = new ProjectManagement.ProjectManagementController(this);
+        addButtonJTable();
     }
     
     public void addButtonJTable() {
     	// addButton the data and column names to a JTable
     	//jtable1  = new JTable(UserListTableController.getData(), UserListTableController.getColumnNames());
     	  
-    	   jtable1 = new JTable(ProjectManagementController.getTableModel());
+    	jtable1 = new JTable(ProjectManagementController.getTableModel());
     	// addButton a ListSelectionListener to the table
     	jtable1.getSelectionModel().addListSelectionListener(ProjectManagementController);
     	// addButton the table to a scrollpane

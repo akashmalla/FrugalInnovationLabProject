@@ -7,6 +7,9 @@ import javax.persistence.Persistence;
 import javax.swing.table.*;
 import javax.persistence.*;
 
+import UserRegistration.*;
+import DisplayProject.*;
+
 import java.util.*;
 
 /**
@@ -15,11 +18,12 @@ import java.util.*;
 */
 public class AddUpdateProjectTableModel extends AbstractTableModel {
 
-	  List<UserRegistration> UserRegistrationResultList;   // stores the model data in a List collection of type UserRegistration
+	  List<DisplayProject> AddUpdateProjectResultList;   // stores the model data in a List collection of type DisplayProject
 	  private static final String PERSISTENCE_UNIT_NAME = "PersistenceUnit";  // Used in persistence.xml
 	  private static EntityManagerFactory factory;  // JPA  
 	  private EntityManager manager;				// JPA 
-	  private UserRegistration UserRegistration;			    // represents the entity courselist
+	  private DisplayProject DisplayProject;			    // represents the entity courselist
+	  private DisplayProjectService DisplayProjectService;
 	  private UserRegistrationService UserRegistrationService;
 	
 	   // This field contains additional information about the results   
@@ -28,15 +32,16 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 	 AddUpdateProjectTableModel() {
 	    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	    manager = factory.createEntityManager();
-	    UserRegistration = new UserRegistration();
+	    DisplayProject = new DisplayProject();
+	    DisplayProjectService = new DisplayProjectService(manager);
 	    UserRegistrationService = new UserRegistrationService(manager);
 	    
 	    // read all the records from courselist
-	    UserRegistrationResultList = UserRegistrationService.readAll();
+	    AddUpdateProjectResultList = DisplayProjectService.readAll();
 	    
 	    // update the number of rows and columns in the model
-	    numrows = UserRegistrationResultList.size();
-	    numcols = UserRegistration.getNumberOfColumns();
+	    numrows = AddUpdateProjectResultList.size();
+	    numcols = DisplayProject.getNumberOfColumns();
       }
 
 	 // returns a count of the number of rows
@@ -52,7 +57,7 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 	 // returns the data at the given row and column number
 	 public Object getValueAt(int row, int col) {
 		try {
-		  return UserRegistrationResultList.get(row).getColumnData(col);
+		  return AddUpdateProjectResultList.get(row).getColumnData(col);
 		} catch (Exception e) {
 			e.getMessage();
 			return null;
@@ -71,7 +76,7 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 	 // returns the name of the column
 	 public String getColumnName(int col) {
 		   try {
-				return UserRegistration.getColumnName(col);
+				return DisplayProject.getColumnName(col);
 			} catch (Exception err) {
 	             return err.toString();
 	       }             
@@ -81,7 +86,7 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 	 public void setValueAt(Object aValue, int row, int col) {
 		//data[rowIndex][columnIndex] = (String) aValue;
 		try {
-		   UserRegistration element = UserRegistrationResultList.get(row);
+		   DisplayProject element = AddUpdateProjectResultList.get(row);
                    element.setColumnData(col, aValue); 
             fireTableCellUpdated(row, col);
 		} catch(Exception err) {
@@ -89,8 +94,8 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 		}	
 	 }
 	
-	 public List<UserRegistration> getList() {
-		 return UserRegistrationResultList;
+	 public List<DisplayProject> getList() {
+		 return AddUpdateProjectResultList;
 	 }
 
 	 public EntityManager getEntityManager() {
@@ -98,13 +103,13 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 	 }
 
 	 // create a new table model using the existing data in list
-	 public UserRegistrationTableModel(List<UserRegistration> list, EntityManager em)  {
-	    UserRegistrationResultList = list;
-	    numrows = UserRegistrationResultList.size();
-	    UserRegistration = new UserRegistration();
-	   	numcols = UserRegistration.getNumberOfColumns();     
+	 public AddUpdateProjectTableModel(List<DisplayProject> list, EntityManager em)  {
+	    AddUpdateProjectResultList = list;
+	    numrows = AddUpdateProjectResultList.size();
+	    DisplayProject = new DisplayProject();
+	   	numcols = DisplayProject.getNumberOfColumns();     
 		manager = em;  
-		UserRegistrationService = new UserRegistrationService(manager);
+		DisplayProjectService = new DisplayProjectService(manager);
 	 }
 	 
 	 // In this method, a newly inserted row in the GUI is added to the table model as well as the database table
@@ -115,12 +120,12 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 	    // add row to database
 		EntityTransaction userTransaction = manager.getTransaction();  
 		userTransaction.begin();
-		UserRegistration newRecord = UserRegistrationService.createUser(Integer.parseInt((String) array[0]), (String) array[1], (String) array[2], (String) array[3]);
+		DisplayProject newRecord = DisplayProjectService.createFile(Integer.parseInt((String) array[0]), (String) array[1], Integer.parseInt((String) array[2]), (String) array[3]);
 		userTransaction.commit();
 		 
 		// set the current row to rowIndex
-        UserRegistrationResultList.add(newRecord);
-        int row = UserRegistrationResultList.size();  
+        AddUpdateProjectResultList.add(newRecord);
+        int row = AddUpdateProjectResultList.size();  
         int col = 0;
 
         // update the data in the model to the entries in array
@@ -131,17 +136,17 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
          numrows++;
 	 }
 	 
-	 public void deleteRow(int userID){
+	 public void deleteRow(int fileID){
 			//data[rowIndex][columnIndex] = (String) aValue;
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
+			int index = AddUpdateProjectResultList.indexOf(manager.find(DisplayProject.class, fileID));
 
 		    // add row to database
 		    System.out.println(index);
 			EntityTransaction userTransaction = manager.getTransaction();  
 			userTransaction.begin();
-			UserRegistrationService.deleteUser(userID);
+			DisplayProjectService.deleteFile(fileID);
 			userTransaction.commit();
-			UserRegistrationResultList.remove(index);
+			AddUpdateProjectResultList.remove(index);
 			numrows--;
 
 			
@@ -150,7 +155,7 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 	 public void updateRow(Object[] array){
 			//data[rowIndex][columnIndex] = (String) aValue;
 		 	int userID = Integer.parseInt((String) array[0]); 
-			int index = UserRegistrationResultList.indexOf(manager.find(UserRegistration.class, userID));
+			int index = AddUpdateProjectResultList.indexOf(manager.find(DisplayProject.class, userID));
 			int col = 0;
 			
 		    // add row to database
@@ -160,7 +165,7 @@ public class AddUpdateProjectTableModel extends AbstractTableModel {
 			userTransaction.commit();
 			
 			// set the current row to rowIndex
-	        //UserRegistrationResultList.add(updateRecord);
+	        //AddUpdateProjectResultList.add(updateRecord);
 			for(Object data : array){
 				setValueAt((String)data, index, col++);
 			}	

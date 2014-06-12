@@ -27,13 +27,13 @@ public class GUI extends javax.swing.JFrame {
         getMainPanel().setLayout(cardLayout);
         getMainPanel().add(new LoginPanel(), "Login Panel");
         getMainPanel().add(new ProjectManagementPanel(), "Project Management Panel");
-        getMainPanel().add(new AddUpdatePanel(), "Add/Update Project Panel");
+        //getMainPanel().add(new AddUpdatePanel(), "Add/Update Project Panel");
         getMainPanel().add(new UserRegistrationPanel(), "User Registration Panel");
         getMainPanel().add(new AssignUsersToProjectsPanel(), "Assign Users to Projects Panel");
         getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
 
 
-        cardLayout.show(getMainPanel(), "Assign Users to Projects Panel");
+        cardLayout.show(getMainPanel(), "Display Project Panel");
 
 
     }

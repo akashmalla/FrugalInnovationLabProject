@@ -1,18 +1,64 @@
 package PanelsInGUI;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import UserRegistration.UserRegistrationController;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /**
  *
  * @author akash
  */
-public class AddUpdatePanel extends javax.swing.JPanel {
+public class AddUpdateProjectPanel extends javax.swing.JPanel {
 
+	private JTable jtable1; // the table displayed on the GUI
+    private AddUpdateProjectController AddUpdateProjectController; // glue between model and gui
     /**
-     * Creates new form AddUpdatePanel
+     * Creates new form UserRegistrationPanel
      */
-    public AddUpdatePanel() {
+    public AddUpdateProjectPanel() {
         initComponents();
+        addButtonJTable();
     }
+    
+    public void addButtonJTable() {
+    	// addButton the data and column names to a JTable
+    	//jtable1  = new JTable(UserListTableController.getData(), UserListTableController.getColumnNames());
+    	  
+    	jtable1 = new JTable(AddUpdateProjectController.getTableModel());
+    	// addButton a ListSelectionListener to the table
+    	jtable1.getSelectionModel().addListSelectionListener(AddUpdateProjectController);
+    	// addButton the table to a scrollpane
+    	JScrollPane scrollpane = new JScrollPane(jtable1);
+    	filesInProjectPanel.setLayout(new BorderLayout());
+    	filesInProjectPanel.add(scrollpane, BorderLayout.CENTER);
+    }
+    	    
+	    public void updateTable() {
+	    	jtable1.setModel(AddUpdateProjectController.getTableModel());
+	    }
 
+    	public void setProjectIDTextField(String val) {
+    		projectIDTextField.setText(val);
+    	}
+    	
+    	public void setProjectNameTextField(String val) {
+    		projectNameTextField.setText(val);
+    	}
+    	
+    	public void setDescriptionTextArea(String val) {
+    		projectNameTextField.setText(val);
+    	}	
+    	
+    	
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,6 +76,8 @@ public class AddUpdatePanel extends javax.swing.JPanel {
         deleteFilesButton = new javax.swing.JButton();
         fileLevelComboBox = new javax.swing.JComboBox();
         filesInProjectPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        filePathTextField = new javax.swing.JTextField();
         doneButton = new javax.swing.JButton();
         projectDetailsPanel = new javax.swing.JPanel();
         projectNameLabel = new javax.swing.JLabel();
@@ -72,12 +120,14 @@ public class AddUpdatePanel extends javax.swing.JPanel {
         filesInProjectPanel.setLayout(filesInProjectPanelLayout);
         filesInProjectPanelLayout.setHorizontalGroup(
             filesInProjectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 345, Short.MAX_VALUE)
         );
         filesInProjectPanelLayout.setVerticalGroup(
             filesInProjectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        jLabel2.setText("File Path:");
 
         javax.swing.GroupLayout fileListPanelLayout = new javax.swing.GroupLayout(fileListPanel);
         fileListPanel.setLayout(fileListPanelLayout);
@@ -85,18 +135,27 @@ public class AddUpdatePanel extends javax.swing.JPanel {
             fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fileListPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addGroup(fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(fileListPanelLayout.createSequentialGroup()
-                        .addComponent(fileNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(fileLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(filesInProjectPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
-                .addGroup(fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addFilesButton)
-                    .addComponent(deleteFilesButton))
+                        .addGroup(fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(fileListPanelLayout.createSequentialGroup()
+                                .addComponent(fileNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addComponent(fileLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29))
+                            .addGroup(fileListPanelLayout.createSequentialGroup()
+                                .addComponent(filePathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addFilesButton)
+                            .addComponent(deleteFilesButton)))
+                    .addGroup(fileListPanelLayout.createSequentialGroup()
+                        .addComponent(filesInProjectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         fileListPanelLayout.setVerticalGroup(
@@ -108,14 +167,18 @@ public class AddUpdatePanel extends javax.swing.JPanel {
                     .addComponent(fileLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addFilesButton))
                 .addGroup(fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fileListPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addComponent(filesInProjectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(fileListPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteFilesButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fileListPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addComponent(filesInProjectPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGroup(fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(fileListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(filePathTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(deleteFilesButton))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         doneButton.setText("Done");
@@ -168,7 +231,6 @@ public class AddUpdatePanel extends javax.swing.JPanel {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(projectDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(projectDetailsPanelLayout.createSequentialGroup()
                                 .addGroup(projectDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(projectIDTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
@@ -176,8 +238,9 @@ public class AddUpdatePanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(projectDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         projectDetailsPanelLayout.setVerticalGroup(
             projectDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,9 +257,9 @@ public class AddUpdatePanel extends javax.swing.JPanel {
                     .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(projectDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(descriptionLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                    .addComponent(descriptionLabel)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -274,9 +337,11 @@ public class AddUpdatePanel extends javax.swing.JPanel {
     private javax.swing.JComboBox fileLevelComboBox;
     private javax.swing.JPanel fileListPanel;
     private javax.swing.JTextField fileNameTextField;
+    private javax.swing.JTextField filePathTextField;
     private javax.swing.JPanel filesInProjectPanel;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel projectDetailsPanel;
