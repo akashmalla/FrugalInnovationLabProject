@@ -5,7 +5,19 @@
 		 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		 <class>		UserRegistration.UserRegistration			</class>
 		 <class>		ProjectManagement.ProjectManagement			</class>
+<<<<<<< HEAD
 		 <class>	 	DisplayProject.DisplayProject				</class>
+=======
+<<<<<<< HEAD
+=======
+		 <class>	 	AssignUsersToProjects.AssignUsersToProjects	</class>
+<<<<<<< HEAD
+		 <class>	 	DisplayProject.DisplayProject				</class>
+=======
+>>>>>>> origin/master
+		 <class>		DisplayProject.DisplayProject				</class>
+>>>>>>> FETCH_HEAD
+>>>>>>> FETCH_HEAD
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/project"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

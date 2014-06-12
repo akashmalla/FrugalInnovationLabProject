@@ -1,6 +1,5 @@
 package PanelsInGUI;
 import java.awt.CardLayout;
-
 import AssignUsersToProjects.*;
 
 import java.awt.Component;
@@ -35,8 +34,7 @@ public class GUI extends javax.swing.JFrame {
         //Create it when we use it. Do not create it here. 
         getMainPanel().add(new DisplayProjectPanel(), "Display Project Panel");
 
-        cardLayout.show(getMainPanel(), "Login Panel");
-        //cardLayout.show(getMainPanel(), "Display Project Panel");
+        cardLayout.show(getMainPanel(), "Assign Users to Projects Panel");
 
 
     }
